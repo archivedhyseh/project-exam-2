@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background-base: 0deg 0% 100%;
+    --background-body: 240deg 13% 97%;
+    --background-alt: 240deg 9% 93%;
+
+    --text-base: 240deg 8% 12%;
+    --text-muted: 240deg 6% 40%;
+
+    --color-black-base: 0deg 0% 7%;
+    --color-black-alt: 240deg 5% 60%;
+
+    --color-brand-base: 240deg 86% 66%;
+
+    --color-primary-base: 220deg 82% 34%;
+    --color-primary-accent: 200deg 100% 57%;
+
+    --color-danger: 2deg 93% 64%;
+    --color-warning: 40deg 93% 64%;
+    --color-success: 146deg 88% 44%;
+  }
+}
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
