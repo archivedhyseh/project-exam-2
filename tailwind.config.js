@@ -15,14 +15,22 @@ export default {
       },
       black: {
         DEFAULT: 'hsl(var(--color-black-base) / <alpha-value>)',
+        hover: 'hsl(var(--color-black-hover) / <alpha-value>)',
         alt: 'hsl(var(--color-black-alt) / <alpha-value>)',
+      },
+      white: {
+        DEFAULT: 'hsl(var(--color-white-base) / <alpha-value>)',
+        hover: 'hsl(var(--color-white-hover) / <alpha-value>)',
       },
       brand: {
         DEFAULT: 'hsl(var(--color-brand-base) / <alpha-value>)',
+        hover: 'hsl(var(--color-brand-hover) / <alpha-value>)',
       },
       primary: {
         DEFAULT: 'hsl(var(--color-primary-base) / <alpha-value>)',
-        accent: 'hsl(var(--color-primary-accent) / <alpha-value>)',
+      },
+      accent: {
+        DEFAULT: 'hsl(var(--color-accent-base) / <alpha-value>)',
       },
       system: {
         danger: 'hsl(var(--color-danger) / <alpha-value>)',
@@ -32,6 +40,12 @@ export default {
     },
     boxShadow: {
       DEFAULT: '0 8px 20px -5px rgba(0, 0, 0, 0.2)',
+    },
+    screens: {
+      sm: '640px',
+      md: '960px',
+      lg: '1280px',
+      xl: '1600px',
     },
   },
   plugins: [],
