@@ -12,12 +12,18 @@
     --text-muted: 240deg 6% 40%;
 
     --color-black-base: 0deg 0% 7%;
+    --color-black-hover: 0deg 0% 25%;
     --color-black-alt: 240deg 5% 60%;
 
+    --color-white-base: 0deg 0% 100%;
+    --color-white-hover: 240deg 9% 93%;
+
     --color-brand-base: 240deg 86% 66%;
+    --color-brand-hover: 240deg 86% 78%;
 
     --color-primary-base: 220deg 82% 34%;
-    --color-primary-accent: 200deg 100% 57%;
+
+    --color-accent-base: 200deg 100% 57%;
 
     --color-danger: 2deg 93% 64%;
     --color-warning: 40deg 93% 64%;
