@@ -1,13 +1,18 @@
-import { useEffect, useState } from 'react'
-import Navbar from './Navbar'
-import NavButton from './NavButton'
-import NavMenu from './NavMenu'
+import { useEffect, useRef, useState } from 'react'
+import Navbar from './Nav/Navbar'
+import NavButton from './Nav/NavButton'
+import NavMenu from './Nav/NavMenu'
+import ProfileButton from './Profile/ProfileButton'
+import ProfileMenu from './Profile/ProfileMenu'
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
   const [isMobile, setIsMobile] = useState<boolean>(
     window.matchMedia('(max-width: 959px)').matches
   )
+
+  const dropdownMenuRef = useRef<null | HTMLDivElement>(null)
 
   useEffect(() => {
     const size = window.matchMedia('(max-width: 959px)')
@@ -23,6 +28,22 @@ export default function Header() {
       setIsOpen(false)
     }
   }, [isMobile])
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (
+        isDropdownOpen &&
+        !dropdownMenuRef.current?.contains(e.target as Element)
+      ) {
+        setIsDropdownOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isDropdownOpen])
 
   return (
     <header className="bg-background">
@@ -50,8 +71,18 @@ export default function Header() {
               <span className="font-bold text-brand md:text-xl">Holidaze</span>
             </span>
           </a>
-          <Navbar />
           {isMobile && <NavButton setIsOpen={setIsOpen} />}
+
+          {!isMobile && <Navbar />}
+          {!isMobile && (
+            <div className="relative" ref={dropdownMenuRef}>
+              <ProfileButton
+                isOpen={isDropdownOpen}
+                setIsOpen={setIsDropdownOpen}
+              />
+              {isDropdownOpen && <ProfileMenu />}
+            </div>
+          )}
         </div>
       </div>
       {isOpen && <NavMenu setIsOpen={setIsOpen} />}

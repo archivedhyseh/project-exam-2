@@ -1,4 +1,4 @@
-import TertiaryButton from '../../Buttons/TertiaryButton'
+import TertiaryButton from '../../../Buttons/TertiaryButton'
 
 type NavButtonProps = {
   setIsOpen: (value: boolean) => void

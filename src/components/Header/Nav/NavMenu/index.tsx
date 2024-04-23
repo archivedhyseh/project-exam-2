@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom'
-import TertiaryButton from '../../Buttons/TertiaryButton'
+import TertiaryButton from '../../../Buttons/TertiaryButton'
 import { routes } from '../data'
-import PrimaryButton from '../../Buttons/PrimaryButton'
+import PrimaryButton from '../../../Buttons/PrimaryButton'
 
 type NavMenuProps = {
   setIsOpen: (value: boolean) => void
