@@ -4,15 +4,16 @@ import { ZodType, z } from 'zod'
 import Input from './Input'
 import PrimaryButton from '../../Buttons/PrimaryButton'
 import { Link } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
 
 export type FormValues = {
-  username: string
+  name: string
   email: string
   password: string
 }
 
 const schema: ZodType<FormValues> = z.object({
-  username: z
+  name: z
     .string()
     .min(6, { message: 'Username must be 6 or more characters long.' })
     .regex(/^[a-zA-Z0-9_]*$/, {
@@ -33,8 +34,25 @@ export default function SignupForm() {
     formState: { errors },
   } = useForm<FormValues>({ resolver: zodResolver(schema) })
 
+  const { mutate, error, isError } = useMutation({
+    mutationFn: async (body: FormValues) => {
+      const res = await fetch('https://v2.api.noroff.dev/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      })
+      const { errors } = await res.json()
+
+      if (errors) {
+        throw new Error(errors[0].message)
+      }
+    },
+  })
+
   function onSubmit(data: FormValues) {
-    console.log(data)
+    mutate(data)
   }
 
   return (
@@ -43,7 +61,7 @@ export default function SignupForm() {
         <Input
           type="text"
           label="Username"
-          id="username"
+          id="name"
           register={register}
           errors={errors}
         />
@@ -62,6 +80,12 @@ export default function SignupForm() {
           errors={errors}
         />
       </div>
+
+      {isError && (
+        <div>
+          <span>{error.message}.</span>
+        </div>
+      )}
 
       <PrimaryButton size="full" onClick={() => onSubmit}>
         Sign up

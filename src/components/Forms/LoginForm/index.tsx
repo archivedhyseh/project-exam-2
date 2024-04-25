@@ -4,6 +4,7 @@ import { ZodType, z } from 'zod'
 import Input from './Input'
 import PrimaryButton from '../../Buttons/PrimaryButton'
 import { Link } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
 
 export type FormValues = {
   email: string
@@ -22,8 +23,28 @@ export default function LoginForm() {
     formState: { errors },
   } = useForm<FormValues>({ resolver: zodResolver(schema) })
 
+  const { mutate, error, isError } = useMutation({
+    mutationFn: async (body: FormValues) => {
+      const res = await fetch('https://v2.api.noroff.dev/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      })
+      const { data, errors } = await res.json()
+
+      if (errors) {
+        throw new Error(errors[0].message)
+      }
+
+      localStorage.setItem('accessToken', data.accessToken)
+      localStorage.setItem('name', data.name)
+    },
+  })
+
   function onSubmit(data: FormValues) {
-    console.log(data)
+    mutate(data)
   }
 
   return (
@@ -45,8 +66,14 @@ export default function LoginForm() {
         />
       </div>
 
+      {isError && (
+        <div>
+          <span>{error.message}.</span>
+        </div>
+      )}
+
       <PrimaryButton size="full" onClick={() => onSubmit}>
-        Sign up
+        Log in
       </PrimaryButton>
 
       <span className="text-text">
