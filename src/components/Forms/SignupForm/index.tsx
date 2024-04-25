@@ -14,11 +14,16 @@ export type FormValues = {
 const schema: ZodType<FormValues> = z.object({
   username: z
     .string()
-    .min(6, { message: 'Must be 6 or more characters long.' }),
-  email: z.string().email({ message: 'Please enter a a valid email.' }),
+    .min(6, { message: 'Username must be 6 or more characters long.' })
+    .regex(/^[a-zA-Z0-9_]*$/, {
+      message: 'Username can only contain letters, numbers, and underscores.',
+    }),
+  email: z.string().regex(/^[a-zA-Z0-9._-]+@stud\.noroff\.no$/, {
+    message: 'Only @stud.noroff.no emails are allowed to sign up.',
+  }),
   password: z
     .string()
-    .min(8, { message: 'Must be 8 or more characters long.' }),
+    .min(8, { message: 'Password must be 8 or more characters long.' }),
 })
 
 export default function SignupForm() {
