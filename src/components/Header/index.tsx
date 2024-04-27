@@ -47,7 +47,7 @@ export default function Header() {
 
   return (
     <header className="bg-background">
-      <div className="mx-auto max-w-screen-xl px-4 py-5 md:py-4">
+      <div className="mx-auto max-w-screen-2xl px-4 py-5 lg:py-4">
         <div className="flex justify-between gap-5">
           <a href="/" aria-label="Holidaze" className="inline-flex">
             <span className="flex items-center gap-1 py-2">
@@ -55,7 +55,7 @@ export default function Header() {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                className="h-6 w-6 md:h-8 md:w-8"
+                className="h-6 w-6 lg:h-8 lg:w-8"
               >
                 <path
                   fill="#5E5EF3"
@@ -68,7 +68,7 @@ export default function Header() {
                   clipRule="evenodd"
                 />
               </svg>
-              <span className="font-bold text-brand md:text-xl">Holidaze</span>
+              <span className="font-bold text-brand lg:text-xl">Holidaze</span>
             </span>
           </a>
           {isMobile && <NavButton setIsOpen={setIsOpen} />}

@@ -25,7 +25,7 @@ export default function Input({
         {...props}
         {...register(id)}
         id={id}
-        className="rounded-md border border-black-alt px-3 py-2 text-text placeholder:text-text-muted md:rounded-lg md:px-5 md:py-3"
+        className="rounded-md border border-black-alt px-3 py-2 text-text placeholder:text-text-muted md:rounded-lg lg:px-5 lg:py-3"
       />
       {errors[id] && <span>{errors[id]?.message}</span>}
     </div>
