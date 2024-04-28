@@ -2,7 +2,7 @@ import { InputHTMLAttributes } from 'react'
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
 import { FormValues } from '..'
 
-interface Input extends InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   id: keyof FormValues
   label: string
   register: UseFormRegister<FormValues>
@@ -15,7 +15,7 @@ export default function Input({
   register,
   errors,
   ...props
-}: Input) {
+}: InputProps) {
   return (
     <div className="flex flex-col gap-2">
       <label htmlFor={id} className="text-text">

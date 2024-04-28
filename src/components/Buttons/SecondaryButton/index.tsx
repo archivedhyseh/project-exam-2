@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react'
 
-interface SecondaryButton extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface SecondaryButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode | string
   size: 'default' | 'full'
 }
@@ -9,7 +9,7 @@ export default function SecondaryButton({
   children,
   size,
   ...props
-}: SecondaryButton) {
+}: SecondaryButtonProps) {
   switch (size) {
     case 'default':
       return (
