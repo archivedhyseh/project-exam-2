@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import VenueImage from './VenueImage'
 import VenueDetails from './VenueDetails'
 
-export type VenueCardProps = {
+type VenueCardProps = {
   id: string
   name: string
   media: { url: string; alt: string }[]
