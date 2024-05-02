@@ -7,6 +7,7 @@ import './styles/globals.css'
 import App from './App.tsx'
 import Root from './routes/Root/index.tsx'
 import Venues from './routes/Venues/index.tsx'
+import Listing from './routes/Listing/index.tsx'
 import Signup from './routes/Signup/index.tsx'
 import Login from './routes/Login/index.tsx'
 
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: '/venues',
         element: <Venues />,
+      },
+      {
+        path: '/venue/:id',
+        element: <Listing />,
       },
       {
         path: '/signup',
