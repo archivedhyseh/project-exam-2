@@ -27,6 +27,8 @@ export type Venue = {
     lat: number
     lng: number
   }
+  owner?: Profile
+  booking?: Booking
 }
 
 export type Profile = {
