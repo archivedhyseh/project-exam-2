@@ -6,7 +6,7 @@ import ProfileButton from './Profile/ProfileButton'
 import ProfileMenu from './Profile/ProfileMenu'
 
 export default function Header() {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
   const [isMobile, setIsMobile] = useState<boolean>(
     window.matchMedia('(max-width: 959px)').matches
@@ -24,8 +24,8 @@ export default function Header() {
   }, [])
 
   useEffect(() => {
-    if (isOpen) {
-      setIsOpen(false)
+    if (isMenuOpen) {
+      setIsMenuOpen(false)
     }
   }, [isMobile])
 
@@ -71,7 +71,7 @@ export default function Header() {
               <span className="font-bold text-brand lg:text-xl">Holidaze</span>
             </span>
           </a>
-          {isMobile && <NavButton setIsOpen={setIsOpen} />}
+          {isMobile && <NavButton setIsOpen={setIsMenuOpen} />}
 
           {!isMobile && <Navbar />}
           {!isMobile && (
@@ -85,7 +85,7 @@ export default function Header() {
           )}
         </div>
       </div>
-      {isOpen && <NavMenu setIsOpen={setIsOpen} />}
+      {isMenuOpen && <NavMenu setIsOpen={setIsMenuOpen} />}
     </header>
   )
 }
