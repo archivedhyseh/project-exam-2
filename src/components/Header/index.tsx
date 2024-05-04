@@ -46,7 +46,7 @@ export default function Header() {
   }, [isDropdownOpen])
 
   return (
-    <header className="bg-background">
+    <header className="sticky left-0 top-0 z-[800] bg-background lg:static">
       <div className="mx-auto max-w-screen-2xl px-4 py-5 lg:py-4">
         <div className="flex justify-between gap-5">
           <a href="/" aria-label="Holidaze" className="inline-flex">
