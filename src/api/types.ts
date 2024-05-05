@@ -1,4 +1,4 @@
-export type Booking = {
+export type Bookings = {
   id: string
   dataFrom: string
   dateTo: string
@@ -28,7 +28,7 @@ export type Venue = {
     lng: number
   }
   owner?: Profile
-  booking?: Booking
+  bookings?: Bookings[]
 }
 
 export type Profile = {
