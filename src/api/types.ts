@@ -1,6 +1,6 @@
 export type Bookings = {
   id: string
-  dataFrom: string
+  dateFrom: string
   dateTo: string
   guests: number
   created: string
