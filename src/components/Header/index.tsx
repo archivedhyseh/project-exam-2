@@ -4,6 +4,8 @@ import NavButton from './Nav/NavButton'
 import NavMenu from './Nav/NavMenu'
 import ProfileButton from './Profile/ProfileButton'
 import ProfileMenu from './Profile/ProfileMenu'
+import { createPortal } from 'react-dom'
+import { FocusOn } from 'react-focus-on'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
@@ -49,7 +51,11 @@ export default function Header() {
     <header className="sticky left-0 top-0 z-[800] bg-background lg:static">
       <div className="mx-auto max-w-screen-2xl px-4 py-5 lg:py-4">
         <div className="flex justify-between gap-5">
-          <a href="/" aria-label="Holidaze" className="inline-flex">
+          <a
+            href="/"
+            aria-label="Holidaze"
+            className="inline-flex rounded-md lg:rounded-lg"
+          >
             <span className="flex items-center gap-1 py-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -71,8 +77,8 @@ export default function Header() {
               <span className="font-bold text-brand lg:text-xl">Holidaze</span>
             </span>
           </a>
-          {isMobile && <NavButton setIsOpen={setIsMenuOpen} />}
 
+          {isMobile && <NavButton setIsOpen={setIsMenuOpen} />}
           {!isMobile && <Navbar />}
           {!isMobile && (
             <div className="relative" ref={dropdownMenuRef}>
@@ -80,12 +86,19 @@ export default function Header() {
                 isOpen={isDropdownOpen}
                 setIsOpen={setIsDropdownOpen}
               />
-              {isDropdownOpen && <ProfileMenu />}
+              {isDropdownOpen && <ProfileMenu setIsOpen={setIsDropdownOpen} />}
             </div>
           )}
         </div>
       </div>
-      {isMenuOpen && <NavMenu setIsOpen={setIsMenuOpen} />}
+
+      {isMenuOpen &&
+        createPortal(
+          <FocusOn onEscapeKey={() => setIsMenuOpen(false)}>
+            <NavMenu setIsOpen={setIsMenuOpen} />
+          </FocusOn>,
+          document.getElementById('portal')!
+        )}
     </header>
   )
 }
