@@ -28,7 +28,7 @@ export default function Venues() {
   })
 
   return (
-    <div className="mx-auto max-w-screen-2xl px-4 py-5 md:py-4">
+    <div className="mx-auto max-w-screen-2xl px-4 py-5 lg:py-4">
       {isError && <span>{error.message}</span>}
       <div className="grid auto-rows-fr gap-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         {isSuccess &&
