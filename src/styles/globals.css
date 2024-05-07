@@ -83,9 +83,6 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    scrollbar-gutter: stable;
-    -webkit-scrollbar-gutter: stable;
-    -moz-osx-scrollbar-gutter: stable;
 
     --background-base: 0deg 0% 100%;
     --background-body: 240deg 13% 97%;
