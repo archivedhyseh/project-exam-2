@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 import './styles/globals.css'
+import './styles/daypicker.css'
 import App from './App.tsx'
 import Root from './routes/Root/index.tsx'
 import Venues from './routes/Venues/index.tsx'

@@ -1,0 +1,84 @@
+.daypicker {
+  @apply flex text-text;
+}
+
+.daypicker-months {
+  @apply flex w-full flex-wrap items-center justify-center gap-4 gap-y-8;
+}
+
+.daypicker-month {
+  @apply flex w-full max-w-[280px] flex-col gap-4 lg:max-w-[336px];
+}
+
+.daypicker-caption {
+  @apply relative flex h-10 items-center justify-center lg:h-12;
+}
+
+.daypicker-caption-label {
+  @apply text-base font-bold;
+}
+
+.daypicker-nav-button {
+  @apply absolute top-0 rounded-full bg-background-body p-2 hover:bg-background-alt disabled:bg-background disabled:text-text-muted/50 lg:p-3;
+}
+
+.daypicker-nav-button-prev {
+  @apply left-0 top-0;
+}
+
+.daypicker-nav-button-next {
+  @apply right-0 top-0;
+}
+
+.daypicker-table {
+  @apply flex w-full flex-col gap-1;
+}
+
+.daypicker-table-body {
+  @apply flex flex-col gap-1;
+}
+
+.daypicker-head-row {
+  @apply flex w-full justify-around;
+}
+
+.daypicker-head-cell {
+  @apply basis-1/7 flex items-center justify-center font-semibold;
+}
+
+.daypicker-row {
+  @apply flex w-full justify-around;
+}
+
+.daypicker-cell {
+  @apply basis-1/7 relative flex
+  [&:has([aria-selected])]:bg-background-alt
+  [&:has([aria-selected].daypicker-day-range-end)]:rounded-r-full
+  [&:has([aria-selected].daypicker-day-range-start)]:rounded-l-full;
+}
+
+.daypicker-cell::before {
+  @apply block pt-[100%] content-[''];
+}
+
+.daypicker-day {
+  @apply absolute left-0 top-0 h-full w-full rounded-full
+  [&:not([disabled])]:hover:border
+  [&:not([disabled])]:hover:border-black;
+}
+
+.daypicker-day-disabled {
+  @apply text-text-muted/50 line-through;
+}
+
+.daypicker-day-range-start {
+  @apply rounded-l-full bg-black text-white;
+}
+
+.daypicker-day-range-end {
+  @apply rounded-r-full bg-black text-white;
+}
+
+.daypicker-day-selected {
+  @apply font-semibold;
+}
