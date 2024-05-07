@@ -3,7 +3,7 @@
 }
 
 .daypicker-months {
-  @apply flex w-full flex-wrap items-center justify-center gap-4 gap-y-8;
+  @apply flex w-full flex-wrap justify-center gap-4 gap-y-8;
 }
 
 .daypicker-month {
