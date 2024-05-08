@@ -35,7 +35,11 @@ export default function VenueImage({ media, name }: VenueImageProps) {
           </button>
 
           {isModalOpen && (
-            <VenueModal setIsOpen={setIsModalOpen} media={media} />
+            <VenueModal
+              media={media}
+              isModalOpen={isModalOpen}
+              setIsModalOpen={setIsModalOpen}
+            />
           )}
         </>
       )}

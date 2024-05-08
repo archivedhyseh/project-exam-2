@@ -1,4 +1,4 @@
-import { Profile } from '../../../api/types'
+import { Bookings, Profile } from '../../../api/types'
 import VenueBooking from './VenueBooking'
 import VenueDetails from './VenueDetails'
 import VenueImage from './VenueImage'
@@ -10,6 +10,7 @@ type VenueListingProps = {
   price: number
   meta: { wifi: boolean; parking: boolean; breakfast: boolean; pets: boolean }
   owner?: Profile
+  bookings?: Bookings[]
 }
 
 export default function VenueListing({
@@ -19,6 +20,7 @@ export default function VenueListing({
   price,
   meta,
   owner,
+  bookings,
 }: VenueListingProps) {
   return (
     <>
@@ -34,7 +36,7 @@ export default function VenueListing({
         </div>
 
         <div className="lg:col-span-1">
-          <VenueBooking price={price} />
+          <VenueBooking bookings={bookings} price={price} />
         </div>
       </div>
     </>

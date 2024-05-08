@@ -10,7 +10,7 @@ export default function Listing() {
     queryKey: ['room'],
     queryFn: async () => {
       const res = await fetch(
-        `https://v2.api.noroff.dev/holidaze/venues/${id}?_owner=true`,
+        `https://v2.api.noroff.dev/holidaze/venues/${id}?_owner=true&_bookings=true`,
         {
           method: 'GET',
           headers: {
@@ -41,6 +41,7 @@ export default function Listing() {
           price={data.price}
           meta={data.meta}
           owner={data.owner}
+          bookings={data.bookings}
         />
       )}
     </div>
