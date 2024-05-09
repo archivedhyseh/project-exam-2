@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 import { FocusOn } from 'react-focus-on'
+import IconButton from '../Buttons/IconButton'
 
 type ModalProps = {
   children: ReactNode
@@ -20,10 +21,7 @@ export default function Modal({
         <div className="fixed left-0 top-0 z-[1000] h-full w-full bg-black/30 sm:px-10 sm:pt-10 lg:p-10">
           <div className="relative mx-auto flex h-full max-w-screen-lg flex-col bg-background shadow sm:rounded-t-md lg:rounded-lg">
             <div className="flex justify-end px-4 py-5 lg:py-4">
-              <button
-                className="inline-flex justify-center gap-2 rounded-full bg-background-body p-2 text-text hover:bg-background-alt lg:p-3"
-                onClick={() => setIsModalOpen(false)}
-              >
+              <IconButton onClick={() => setIsModalOpen(false)}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -39,7 +37,7 @@ export default function Modal({
                   />
                 </svg>
                 <span className="sr-only">Close modal</span>
-              </button>
+              </IconButton>
             </div>
             <div className="w-full overflow-hidden overflow-y-auto px-4 py-5 lg:py-4">
               {children}

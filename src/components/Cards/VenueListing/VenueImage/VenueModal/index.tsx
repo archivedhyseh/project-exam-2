@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
 import { FocusOn } from 'react-focus-on'
+import IconButton from '../../../../Buttons/IconButton'
 
 type VenueModalProps = {
   media: { url: string; alt: string }[]
@@ -22,10 +23,7 @@ export default function VenueModal({
         <div className="fixed left-0 top-0 z-[1000] flex h-full w-full justify-center bg-black">
           <div className="relative flex h-full w-full max-w-[1920px] flex-col">
             <div className="flex items-center justify-end px-4 py-5 lg:py-4">
-              <button
-                className="inline-flex justify-center gap-2 rounded-full bg-background-body p-2 text-text hover:bg-background-alt lg:p-3"
-                onClick={() => setIsModalOpen(false)}
-              >
+              <IconButton onClick={() => setIsModalOpen(false)}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -41,13 +39,12 @@ export default function VenueModal({
                   />
                 </svg>
                 <span className="sr-only">Close modal</span>
-              </button>
+              </IconButton>
             </div>
 
-            <div className="relative flex items-center gap-4 overflow-hidden py-5 sm:px-4 lg:gap-4 lg:py-4">
+            <div className="relative flex h-full items-center gap-4 overflow-hidden py-5 sm:px-4 lg:gap-4  lg:py-4">
               <div className="absolute left-2 sm:left-4 md:static">
-                <button
-                  className="inline-flex justify-center gap-2 rounded-full bg-background-body p-2 text-text shadow hover:bg-background-alt disabled:text-text-muted/50 lg:p-3"
+                <IconButton
                   onClick={() => setImageIndex(imageIndex - 1)}
                   disabled={imageIndex >= 1 ? false : true}
                 >
@@ -66,7 +63,7 @@ export default function VenueModal({
                     />
                   </svg>
                   <span className="sr-only">Previous image</span>
-                </button>
+                </IconButton>
               </div>
 
               <div className="h-full w-full">
@@ -77,8 +74,7 @@ export default function VenueModal({
               </div>
 
               <div className="absolute right-2 sm:right-4 md:static">
-                <button
-                  className="inline-flex justify-center gap-2 rounded-full bg-background-body p-2 text-text shadow hover:bg-background-alt disabled:text-text-muted/50 lg:p-3"
+                <IconButton
                   onClick={() => setImageIndex(imageIndex + 1)}
                   disabled={imageIndex < media.length - 1 ? false : true}
                 >
@@ -97,7 +93,7 @@ export default function VenueModal({
                     />
                   </svg>
                   <span className="sr-only">Next image</span>
-                </button>
+                </IconButton>
               </div>
             </div>
 
