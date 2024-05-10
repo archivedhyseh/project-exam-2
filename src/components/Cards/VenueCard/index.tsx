@@ -7,9 +7,24 @@ type VenueCardProps = {
   name: string
   media: { url: string; alt: string }[]
   price: number
+  location: {
+    address: string
+    city: string
+    zip: string
+    country: string
+    continent: string
+    lat: number
+    lng: number
+  }
 }
 
-export default function VenueCard({ id, name, media, price }: VenueCardProps) {
+export default function VenueCard({
+  id,
+  name,
+  media,
+  price,
+  location,
+}: VenueCardProps) {
   return (
     <div className="relative flex flex-col gap-2">
       <Link
@@ -17,7 +32,7 @@ export default function VenueCard({ id, name, media, price }: VenueCardProps) {
         className="absolute left-0 top-0 h-full w-full rounded-lg"
       />
       <VenueImage media={media} name={name} />
-      <VenueDetails name={name} price={price} />
+      <VenueDetails name={name} price={price} location={location} />
     </div>
   )
 }

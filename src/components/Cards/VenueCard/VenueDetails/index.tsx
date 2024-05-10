@@ -1,19 +1,45 @@
+import {
+  formatCity,
+  formatCountry,
+  formatName,
+} from '../../../../utility/format'
+
 type VenueDetailsProps = {
   name: string
   price: number
+  location: {
+    address: string
+    city: string
+    zip: string
+    country: string
+    continent: string
+    lat: number
+    lng: number
+  }
 }
 
-export default function VenueDetails({ name, price }: VenueDetailsProps) {
+export default function VenueDetails({
+  name,
+  price,
+  location,
+}: VenueDetailsProps) {
   return (
     <div>
       <div>
-        <span className="line-clamp-1 text-ellipsis break-all font-bold text-text">
-          {name.trim().length > 1 ? name : 'No name for venue'}
+        <span className="line-clamp-1 text-text-muted">
+          {formatCity(location.city)}, {formatCountry(location.country)}
         </span>
       </div>
-      <div>
-        <span className="font-semibold text-text">€{price} EUR </span>
-        <span className="font-normal text-text">night</span>
+
+      <div className="flex flex-col gap-2">
+        <span className="line-clamp-1 text-ellipsis break-all font-bold text-text">
+          {formatName(name)}
+        </span>
+
+        <div>
+          <span className="font-semibold text-text">€{price} </span>
+          <span className="font-normal text-text">night</span>
+        </div>
       </div>
     </div>
   )

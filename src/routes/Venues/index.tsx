@@ -32,7 +32,7 @@ export default function Venues() {
       {isError && <span>{error.message}</span>}
       <div className="grid auto-rows-fr gap-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         {isSuccess &&
-          data.map(({ id, name, media, price }) => {
+          data.map(({ id, name, media, price, location }) => {
             return (
               <VenueCard
                 key={id}
@@ -40,6 +40,7 @@ export default function Venues() {
                 name={name}
                 media={media}
                 price={price}
+                location={location}
               />
             )
           })}

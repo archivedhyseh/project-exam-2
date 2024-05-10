@@ -40,6 +40,7 @@ export default function Listing() {
           media={data.media}
           price={data.price}
           meta={data.meta}
+          location={data.location}
           owner={data.owner}
           bookings={data.bookings}
         />
