@@ -7,12 +7,14 @@ type ModalProps = {
   children: ReactNode
   isModalOpen: boolean
   setIsModalOpen: (value: boolean) => void
+  modalFooter?: ReactNode
 }
 
 export default function Modal({
   children,
   isModalOpen,
   setIsModalOpen,
+  modalFooter,
 }: ModalProps) {
   return (
     isModalOpen &&
@@ -39,9 +41,16 @@ export default function Modal({
                 <span className="sr-only">Close modal</span>
               </IconButton>
             </div>
-            <div className="w-full overflow-hidden overflow-y-auto px-4 py-5 lg:py-4">
-              {children}
+
+            <div className="relative w-full overflow-hidden overflow-y-auto px-4 py-5 lg:py-4">
+              <div className="mx-auto max-w-3xl">{children}</div>
             </div>
+
+            {modalFooter && (
+              <div className="w-full px-4 py-5 lg:py-4">
+                <div className="mx-auto max-w-3xl">{modalFooter}</div>
+              </div>
+            )}
           </div>
         </div>
       </FocusOn>,
