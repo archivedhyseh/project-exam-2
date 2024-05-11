@@ -3,11 +3,11 @@
 }
 
 .daypicker-months {
-  @apply flex w-full flex-wrap justify-center gap-4 gap-y-8;
+  @apply flex w-full flex-wrap justify-center gap-4;
 }
 
 .daypicker-month {
-  @apply flex w-full max-w-[280px] flex-col gap-4 lg:max-w-[336px];
+  @apply flex w-full max-w-[304px] flex-col gap-4 rounded-md bg-background-body p-3 lg:max-w-[376px] lg:rounded-lg lg:p-5;
 }
 
 .daypicker-caption {
@@ -19,7 +19,7 @@
 }
 
 .daypicker-nav-button {
-  @apply absolute top-0 rounded-full bg-background-body p-2 hover:bg-background-alt disabled:bg-background disabled:text-text-muted/50 lg:p-3;
+  @apply absolute top-0 rounded-full p-2 hover:bg-background-alt disabled:bg-background-body disabled:text-text-muted/50 lg:p-3;
 }
 
 .daypicker-nav-button-prev {
@@ -43,7 +43,7 @@
 }
 
 .daypicker-head-cell {
-  @apply basis-1/7 flex items-center justify-center font-semibold;
+  @apply flex basis-1/7 items-center justify-center font-semibold;
 }
 
 .daypicker-row {
@@ -51,7 +51,7 @@
 }
 
 .daypicker-cell {
-  @apply basis-1/7 relative flex
+  @apply relative flex basis-1/7
   [&:has([aria-selected])]:bg-background-alt
   [&:has([aria-selected].daypicker-day-range-end)]:rounded-r-full
   [&:has([aria-selected].daypicker-day-range-start)]:rounded-l-full;
