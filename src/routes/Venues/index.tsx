@@ -1,18 +1,40 @@
+import { useSearchParams } from 'react-router-dom'
 import { useInfiniteQuery } from '@tanstack/react-query'
+import { isAfter, isBefore, parseISO } from 'date-fns'
 import { Errors, Meta, Venue } from '../../api/types'
 import VenueCard from '../../components/Cards/VenueCard'
 import SecondaryButton from '../../components/Buttons/SecondaryButton'
+import Search from './Search'
+import Filters from './Filter'
 
-const fetchVenues = async ({ pageParam }: { pageParam: number }) => {
-  const res = await fetch(
-    `https://v2.api.noroff.dev/holidaze/venues?limit=60&sort=created&page=${pageParam}`,
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
-  )
+type fetchVenuesProps = {
+  pageParam: number
+  query: string | null
+}
+
+const fetchVenues = async ({ pageParam, query }: fetchVenuesProps) => {
+  let url =
+    'https://v2.api.noroff.dev/holidaze/venues' +
+    `?page=${pageParam}` +
+    '&limit=60' +
+    '&sort=created' +
+    '&_bookings=true'
+
+  if (query) {
+    url =
+      'https://v2.api.noroff.dev/holidaze/venues/search' +
+      `?q=${query}` +
+      '&limit=60' +
+      '&sort=created' +
+      '&_bookings=true'
+  }
+
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
 
   const data: { data: Venue[]; meta: Meta; errors: Errors[] } = await res.json()
 
@@ -24,34 +46,86 @@ const fetchVenues = async ({ pageParam }: { pageParam: number }) => {
 }
 
 export default function Venues() {
+  const [searchParams] = useSearchParams()
+  const query = searchParams.get('query')
+
   const { data, error, isError, isSuccess, fetchNextPage, hasNextPage } =
     useInfiniteQuery({
-      queryKey: ['venues'],
-      queryFn: fetchVenues,
+      queryKey: ['venues', query],
+      queryFn: ({ pageParam }) => fetchVenues({ pageParam, query }),
       initialPageParam: 1,
       getNextPageParam: (lastPage) => lastPage.meta.nextPage,
+      select: (data) => {
+        const venues = []
+        for (const page of data.pages) {
+          for (const venue of page.data) {
+            venues.push(venue)
+          }
+        }
+        return venues
+      },
     })
+
+  let venues: Venue[] = []
+
+  if (isSuccess) {
+    venues = data.filter((venue) => {
+      const guestsParam = searchParams.get('guests')
+      const checkinParam = searchParams.get('checkin')
+      const checkoutParam = searchParams.get('checkout')
+
+      if (venue.bookings) {
+        if (checkinParam && checkoutParam) {
+          const checkin = parseISO(checkinParam)
+          const checkout = parseISO(checkoutParam)
+
+          for (const booking of venue.bookings) {
+            const bookingCheckin = new Date(booking.dateFrom)
+            const bookingCheckout = new Date(booking.dateTo)
+
+            if (
+              isAfter(bookingCheckin, checkin) &&
+              isBefore(bookingCheckout, checkout)
+            ) {
+              return false
+            }
+          }
+        }
+      }
+
+      if (guestsParam) {
+        const totalGuests = parseFloat(guestsParam)
+
+        if (totalGuests > venue.maxGuests) return false
+      }
+
+      return true
+    })
+  }
 
   return (
     <div className="mx-auto max-w-screen-2xl px-4 py-5 lg:py-4">
       {isError && <span>{error.message}</span>}
       <div className="flex flex-col gap-y-8">
+        <div className="mx-auto flex w-full max-w-screen-md gap-4">
+          <Search />
+          <Filters />
+        </div>
+
+        <hr className="border-black-alt" />
+
         <div className="grid auto-rows-fr gap-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
           {isSuccess &&
-            data.pages.map((page) => {
-              return page.data.map(({ id, name, media, price, location }) => {
-                return (
-                  <VenueCard
-                    key={id}
-                    id={id}
-                    name={name}
-                    media={media}
-                    price={price}
-                    location={location}
-                  />
-                )
-              })
-            })}
+            venues.map(({ id, name, media, price, location }) => (
+              <VenueCard
+                key={id}
+                id={id}
+                name={name}
+                media={media}
+                price={price}
+                location={location}
+              />
+            ))}
         </div>
 
         {hasNextPage && (
