@@ -47,7 +47,7 @@ export default function Modal({
             </div>
 
             {modalFooter && (
-              <div className="w-full px-4 py-5 lg:py-4">
+              <div className="mt-auto w-full px-4 py-5 lg:py-4">
                 <div className="mx-auto max-w-3xl">{modalFooter}</div>
               </div>
             )}
