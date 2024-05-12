@@ -5,7 +5,7 @@ type FiltersButtonProps = {
 export default function FiltersButton({ setIsModalOpen }: FiltersButtonProps) {
   return (
     <button
-      className="inline-flex min-w-[50px] items-center justify-center gap-2 rounded-full bg-black p-3 font-bold text-white hover:bg-black-hover sm:min-w-[auto] lg:px-5 lg:py-3"
+      className="inline-flex min-w-[50px] items-center justify-center gap-1 rounded-full bg-black p-3 font-bold text-white hover:bg-black-hover sm:min-w-[auto] lg:px-5 lg:py-3"
       onClick={() => setIsModalOpen(true)}
     >
       <svg

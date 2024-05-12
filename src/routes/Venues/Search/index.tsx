@@ -37,11 +37,11 @@ export default function Search() {
           placeholder="Search"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full rounded-full border border-black-alt px-3 py-3 text-text placeholder:text-text-muted lg:px-5 lg:py-4"
+          className="w-full rounded-full border border-black-alt px-3 py-3 pr-[50px] text-text placeholder:text-text-muted sm:pr-[108px] lg:px-5 lg:py-4 lg:pr-[116px]"
         />
 
         <div className="absolute right-0 p-1.5">
-          <button className="inline-flex justify-center gap-2 rounded-full bg-brand p-2 font-bold text-white hover:bg-brand-hover lg:p-3">
+          <button className="inline-flex justify-center gap-1 rounded-full bg-brand p-2 font-bold text-white hover:bg-brand-hover lg:p-3">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
