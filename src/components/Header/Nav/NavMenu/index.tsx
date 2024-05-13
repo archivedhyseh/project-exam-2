@@ -1,13 +1,15 @@
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
+import { navAuthRoutes, navRoutes } from '../../data'
 import TertiaryButton from '../../../Buttons/TertiaryButton'
-import { routes } from '../data'
-import PrimaryButton from '../../../Buttons/PrimaryButton'
+import SecondaryButton from '../../../Buttons/SecondaryButton'
 
 type NavMenuProps = {
   setIsOpen: (value: boolean) => void
 }
 
 export default function NavMenu({ setIsOpen }: NavMenuProps) {
+  const accessToken = localStorage.getItem('accessToken')
+
   return (
     <div className="fixed left-0 top-0 z-[1000] flex h-full w-full justify-end bg-black/30 p-4">
       <nav className="flex h-full w-full max-w-80 flex-col gap-2 rounded-lg bg-background px-4 py-5 shadow">
@@ -54,8 +56,23 @@ export default function NavMenu({ setIsOpen }: NavMenuProps) {
 
         <div className="flex h-full flex-col justify-between">
           <div className="flex flex-col">
-            {routes.map((route, index) => {
-              return (
+            {navRoutes.map((route, index) => (
+              <NavLink
+                key={index}
+                to={route.href}
+                onClick={() => setIsOpen(false)}
+                className={({ isActive }) =>
+                  isActive
+                    ? 'inline-flex rounded-md py-2 font-bold text-text lg:rounded-full'
+                    : 'inline-flex rounded-md py-2 text-text hover:text-text-muted lg:rounded-full'
+                }
+              >
+                {route.title}
+              </NavLink>
+            ))}
+
+            {accessToken &&
+              navAuthRoutes.map((route, index) => (
                 <NavLink
                   key={index}
                   to={route.href}
@@ -68,11 +85,20 @@ export default function NavMenu({ setIsOpen }: NavMenuProps) {
                 >
                   {route.title}
                 </NavLink>
-              )
-            })}
+              ))}
           </div>
 
-          <PrimaryButton size="full">Sign in</PrimaryButton>
+          {accessToken ? (
+            <SecondaryButton size="full">Log out</SecondaryButton>
+          ) : (
+            <Link
+              to="/login"
+              onClick={() => setIsOpen(false)}
+              className="inline-flex w-full justify-center gap-2 rounded-full bg-brand px-3 py-2 font-bold text-white hover:bg-brand-hover lg:px-5 lg:py-3"
+            >
+              Sign in
+            </Link>
+          )}
         </div>
       </nav>
     </div>
