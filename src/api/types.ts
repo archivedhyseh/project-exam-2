@@ -38,6 +38,8 @@ export type Profile = {
   avatar: { url: string; alt: string }
   venueManager: boolean
   _count: { bookings: number; venues: number }
+  bookings?: Bookings[]
+  venues?: Venue[]
 }
 
 export type Meta = {
