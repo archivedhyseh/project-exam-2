@@ -14,7 +14,7 @@ export default function PrimaryButton({
     case 'default':
       return (
         <button
-          className="inline-flex justify-center gap-2 rounded-full bg-brand px-3 py-2 font-bold text-white hover:bg-brand-hover lg:px-5 lg:py-3"
+          className="inline-flex justify-center gap-1 rounded-full bg-brand px-3 py-2 font-bold text-white hover:bg-brand-hover lg:px-5 lg:py-3"
           {...props}
         >
           {children}
@@ -24,7 +24,7 @@ export default function PrimaryButton({
     case 'full':
       return (
         <button
-          className="inline-flex w-full justify-center gap-2 rounded-full bg-brand px-3 py-2 font-bold text-white hover:bg-brand-hover lg:px-5 lg:py-3"
+          className="inline-flex w-full justify-center gap-1 rounded-full bg-brand px-3 py-2 font-bold text-white hover:bg-brand-hover lg:px-5 lg:py-3"
           {...props}
         >
           {children}
