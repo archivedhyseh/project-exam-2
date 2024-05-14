@@ -33,7 +33,7 @@ export default function VenueDetails({
   return (
     <>
       <div className="grid gap-4">
-        <div>
+        <div className="grid gap-1">
           <span className="line-clamp-1 font-semibold text-text">
             {formatCity(location.city)}, {formatCountry(location.country)}
           </span>

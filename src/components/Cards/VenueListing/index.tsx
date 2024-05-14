@@ -8,6 +8,7 @@ type VenueListingProps = {
   description: string
   media: { url: string; alt: string }[]
   price: number
+  maxGuests: number
   meta: { wifi: boolean; parking: boolean; breakfast: boolean; pets: boolean }
   location: {
     address: string
@@ -27,6 +28,7 @@ export default function VenueListing({
   description,
   media,
   price,
+  maxGuests,
   meta,
   location,
   owner,
@@ -47,7 +49,11 @@ export default function VenueListing({
         </div>
 
         <div className="lg:col-span-1">
-          <VenueBooking bookings={bookings} price={price} />
+          <VenueBooking
+            bookings={bookings}
+            price={price}
+            maxGuests={maxGuests}
+          />
         </div>
       </div>
     </>

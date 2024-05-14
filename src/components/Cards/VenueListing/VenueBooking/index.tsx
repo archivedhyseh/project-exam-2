@@ -1,86 +1,83 @@
-import { useState } from 'react'
-import { Bookings } from '../../../../api/types'
+import { parseISO } from 'date-fns'
+import { useEffect, useState } from 'react'
 import { DateRange } from 'react-day-picker'
-import { addYears, isAfter, isBefore } from 'date-fns'
-import PrimaryButton from '../../../Buttons/PrimaryButton'
+import { useSearchParams } from 'react-router-dom'
+import { Bookings } from '../../../../api/types'
 import Modal from '../../../Modal'
-import VenueCalendar from './VenueCalendar'
+import BookingButton from './BookingButton'
+import BookingFooter from './BookingFooter'
+import BookingMenu from './BookingMenu'
+import PrimaryButton from '../../../Buttons/PrimaryButton'
 
 type VenueBookingProps = {
   bookings?: Bookings[]
   price: number
+  maxGuests: number
 }
 
-export default function VenueBooking({ bookings, price }: VenueBookingProps) {
-  const [selectedRange, setSelectedRange] = useState<DateRange | undefined>()
+export default function VenueBooking({
+  bookings,
+  price,
+  maxGuests,
+}: VenueBookingProps) {
+  const [searchParams] = useSearchParams()
+
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const [selectedRange, setSelectedRange] = useState<DateRange | undefined>()
+  const [totalGuests, setTotalGuests] = useState<string | undefined>('')
 
-  const currentDate = new Date()
-  const fromMonth = currentDate
-  const toDate = addYears(currentDate, 2)
-  const bookedDays =
-    bookings?.map((booking) => ({
-      from: new Date(booking.dateFrom),
-      to: new Date(booking.dateTo),
-    })) || []
-  const disabledDays = [{ before: currentDate }, ...bookedDays]
+  useEffect(() => {
+    const checkin = searchParams.get('checkin')
+    const checkout = searchParams.get('checkout')
+    const guests = searchParams.get('guests')
 
-  const handleSelectRange = (
-    range: DateRange | undefined,
-    selectedDate: Date
-  ) => {
-    let isDisabledDay = false
+    if (checkin && checkout && guests) {
+      setSelectedRange({
+        from: new Date(parseISO(checkin)),
+        to: new Date(parseISO(checkout)),
+      })
 
-    if (range) {
-      for (let i = 0; i < bookedDays.length; i++) {
-        if (
-          isAfter(bookedDays[i].from, range.from!) &&
-          isBefore(bookedDays[i].to, range.to!)
-        ) {
-          isDisabledDay = true
-          break
-        }
-      }
+      setTotalGuests(guests || '')
     }
-
-    if (isDisabledDay) {
-      setSelectedRange({ from: selectedDate, to: undefined })
-    } else {
-      setSelectedRange(() => range)
-    }
-  }
+  }, [])
 
   return (
-    <div className="max-w-lg lg:sticky lg:top-4 lg:rounded-lg lg:bg-background-body lg:px-4 lg:py-5">
+    <div className="lg:sticky lg:top-4 lg:rounded-lg lg:bg-background-body lg:px-4 lg:py-5">
       <div className="flex flex-col gap-4">
-        <div className="relative">
-          <button
-            className="absolute left-0 top-0 h-full w-full rounded-md lg:rounded-lg"
-            onClick={() => setIsModalOpen(true)}
-          >
-            <span className="sr-only">Open booking modal</span>
-          </button>
-          <div className="flex">
-            <div className="w-full rounded-l-md border border-black-alt bg-background px-3 py-2 text-text-muted lg:rounded-l-lg lg:py-3">
-              <span>DD/MM/YYYY</span>
-            </div>
-            <div className="w-full rounded-r-md border border-black-alt bg-background px-3 py-2 text-text-muted lg:rounded-r-lg lg:py-3">
-              <span>DD/MM/YYYY</span>
-            </div>
-          </div>
-        </div>
+        <h2 className="text-xl font-semibold text-text">Add booking details</h2>
 
-        <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
-          <VenueCalendar
-            selected={selectedRange}
-            onSelect={handleSelectRange}
-            fromMonth={fromMonth}
-            toDate={toDate}
-            disabled={disabledDays}
+        <BookingButton setIsModalOpen={setIsModalOpen} />
+
+        <Modal
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          modalFooter={
+            <BookingFooter
+              setIsModalOpen={setIsModalOpen}
+              setSelectedRange={setSelectedRange}
+              setTotalGuests={setTotalGuests}
+            />
+          }
+        >
+          <BookingMenu
+            bookings={bookings}
+            maxGuests={maxGuests}
+            setIsModalOpen={setIsModalOpen}
+            selectedRange={selectedRange}
+            setSelectedRange={setSelectedRange}
+            totalGuests={totalGuests}
+            setTotalGuests={setTotalGuests}
           />
         </Modal>
 
-        <PrimaryButton size="full">Reserve</PrimaryButton>
+        <PrimaryButton size="full">Check availability</PrimaryButton>
+
+        <hr className="border-black-alt" />
+
+        <div>
+          <span className="text-xl font-semibold text-text">€{price} </span>
+          <span className="text-xl font-normal text-text">night</span>
+        </div>
       </div>
     </div>
   )

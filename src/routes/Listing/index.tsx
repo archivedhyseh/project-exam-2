@@ -39,6 +39,7 @@ export default function Listing() {
           description={data.description}
           media={data.media}
           price={data.price}
+          maxGuests={data.maxGuests}
           meta={data.meta}
           location={data.location}
           owner={data.owner}
