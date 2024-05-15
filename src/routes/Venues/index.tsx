@@ -1,6 +1,13 @@
 import { useSearchParams } from 'react-router-dom'
 import { useInfiniteQuery } from '@tanstack/react-query'
-import { isAfter, isBefore, parseISO } from 'date-fns'
+import {
+  endOfDay,
+  isAfter,
+  isBefore,
+  isEqual,
+  parseISO,
+  startOfDay,
+} from 'date-fns'
 import { Errors, Meta, Venue } from '../../api/types'
 import VenueCard from '../../components/Cards/VenueCard'
 import SecondaryButton from '../../components/Buttons/SecondaryButton'
@@ -76,16 +83,18 @@ export default function Venues() {
 
       if (venue.bookings) {
         if (checkinParam && checkoutParam) {
-          const checkin = parseISO(checkinParam)
-          const checkout = parseISO(checkoutParam)
+          const checkin = startOfDay(parseISO(checkinParam))
+          const checkout = endOfDay(parseISO(checkoutParam))
 
           for (const booking of venue.bookings) {
-            const bookingCheckin = new Date(booking.dateFrom)
-            const bookingCheckout = new Date(booking.dateTo)
+            const bookedCheckin = startOfDay(parseISO(booking.dateFrom))
+            const bookedCheckout = endOfDay(parseISO(booking.dateTo))
 
             if (
-              isAfter(bookingCheckin, checkin) &&
-              isBefore(bookingCheckout, checkout)
+              (isBefore(bookedCheckin, checkout) ||
+                isEqual(bookedCheckin, checkout)) &&
+              (isAfter(bookedCheckout, checkin) ||
+                isEqual(bookedCheckout, checkin))
             ) {
               return false
             }
