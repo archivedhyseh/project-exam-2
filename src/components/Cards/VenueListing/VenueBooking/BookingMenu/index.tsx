@@ -1,7 +1,14 @@
-import { addYears, format, isAfter, isBefore } from 'date-fns'
+import {
+  addYears,
+  endOfDay,
+  format,
+  isAfter,
+  isBefore,
+  startOfDay,
+} from 'date-fns'
 import { FormEvent } from 'react'
 import { DateRange } from 'react-day-picker'
-import { useSearchParams } from 'react-router-dom'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { Bookings } from '../../../../../api/types'
 import Calendar from '../../../../Calendar'
 import Input from './Input'
@@ -25,7 +32,9 @@ export default function BookingMenu({
   totalGuests,
   setTotalGuests,
 }: BookingMenuProps) {
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
+  const navigate = useNavigate()
+  const location = useLocation()
 
   const currentDate = new Date()
   const fromDate = currentDate
@@ -41,23 +50,29 @@ export default function BookingMenu({
     range: DateRange | undefined,
     selectedDate: Date
   ) => {
-    let includesDisabledDay = false
+    let isAlreadyBooked = false
 
     if (range) {
       if (range.from && range.to) {
-        for (const bookedDay of bookedDays) {
+        const checkin = startOfDay(range.from)
+        const checkout = endOfDay(range.to)
+
+        for (const booking of bookedDays) {
+          const bookedCheckin = startOfDay(booking.from)
+          const bookedCheckout = endOfDay(booking.to)
+
           if (
-            isAfter(bookedDay.from, range.from) &&
-            isBefore(bookedDay.to, range.to)
+            isAfter(bookedCheckin, checkin) &&
+            isBefore(bookedCheckout, checkout)
           ) {
-            includesDisabledDay = true
+            isAlreadyBooked = true
             break
           }
         }
       }
     }
 
-    if (includesDisabledDay) {
+    if (isAlreadyBooked) {
       setSelectedRange({ from: selectedDate, to: undefined })
     } else {
       setSelectedRange(range)
@@ -89,11 +104,7 @@ export default function BookingMenu({
         searchParams.delete('guests')
       }
 
-      setSearchParams((initial) => {
-        searchParams
-        return initial
-      })
-
+      navigate(`${location.pathname}?${searchParams}`, { replace: true })
       setIsModalOpen(false)
     }
   }

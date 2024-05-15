@@ -1,5 +1,5 @@
 import { DateRange } from 'react-day-picker'
-import { useSearchParams } from 'react-router-dom'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import TertiaryButton from '../../../../Buttons/TertiaryButton'
 import SecondaryButton from '../../../../Buttons/SecondaryButton'
 
@@ -14,7 +14,9 @@ export default function BookingFooter({
   setSelectedRange,
   setTotalGuests,
 }: BookingFooterProps) {
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
+  const navigate = useNavigate()
+  const location = useLocation()
 
   const handleClearAll = () => {
     setSelectedRange(undefined)
@@ -24,10 +26,13 @@ export default function BookingFooter({
     searchParams.delete('checkout')
     searchParams.delete('guests')
 
-    setSearchParams((initial) => {
-      searchParams
-      return initial
-    })
+    navigate(`${location.pathname}?${searchParams}`, { replace: true })
+    setIsModalOpen(false)
+  }
+
+  const handleCancel = () => {
+    setSelectedRange(undefined)
+    setTotalGuests('')
 
     setIsModalOpen(false)
   }
@@ -48,7 +53,7 @@ export default function BookingFooter({
           size="default"
           form="bookingForm"
           type="button"
-          onClick={() => setIsModalOpen(false)}
+          onClick={() => handleCancel()}
         >
           Cancel
         </TertiaryButton>

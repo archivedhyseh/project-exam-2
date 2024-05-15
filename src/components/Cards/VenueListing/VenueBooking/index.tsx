@@ -1,4 +1,4 @@
-import { parseISO } from 'date-fns'
+import { differenceInDays, parseISO } from 'date-fns'
 import { useEffect, useState } from 'react'
 import { DateRange } from 'react-day-picker'
 import { useSearchParams } from 'react-router-dom'
@@ -7,7 +7,7 @@ import Modal from '../../../Modal'
 import BookingButton from './BookingButton'
 import BookingFooter from './BookingFooter'
 import BookingMenu from './BookingMenu'
-import PrimaryButton from '../../../Buttons/PrimaryButton'
+import BookingPricing from './BookingPricing'
 
 type VenueBookingProps = {
   bookings?: Bookings[]
@@ -25,6 +25,7 @@ export default function VenueBooking({
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [selectedRange, setSelectedRange] = useState<DateRange | undefined>()
   const [totalGuests, setTotalGuests] = useState<string | undefined>('')
+  const [totalNights, setTotalNights] = useState<number>(1)
 
   useEffect(() => {
     const checkin = searchParams.get('checkin')
@@ -38,11 +39,18 @@ export default function VenueBooking({
       })
 
       setTotalGuests(guests || '')
+
+      const totalDays = differenceInDays(checkout, checkin)
+      if (totalDays > 1) {
+        setTotalNights(totalDays)
+      } else {
+        setTotalNights(1)
+      }
     }
-  }, [])
+  }, [searchParams])
 
   return (
-    <div className="lg:sticky lg:top-4 lg:rounded-lg lg:bg-background-body lg:px-4 lg:py-5">
+    <div className="max-w-screen-md lg:sticky lg:top-4 lg:max-w-none lg:rounded-lg lg:bg-background-body lg:px-4 lg:py-5">
       <div className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold text-text">Add booking details</h2>
 
@@ -70,14 +78,11 @@ export default function VenueBooking({
           />
         </Modal>
 
-        <PrimaryButton size="full">Check availability</PrimaryButton>
-
-        <hr className="border-black-alt" />
-
-        <div>
-          <span className="text-xl font-semibold text-text">€{price} </span>
-          <span className="text-xl font-normal text-text">night</span>
-        </div>
+        <BookingPricing
+          price={price}
+          totalNights={totalNights}
+          setIsModalOpen={setIsModalOpen}
+        />
       </div>
     </div>
   )
