@@ -56,7 +56,7 @@ export default function Header() {
             aria-label="Holidaze"
             className="inline-flex rounded-md lg:rounded-lg"
           >
-            <span className="flex items-center gap-1 py-2">
+            <div className="flex items-center gap-1 py-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -75,7 +75,7 @@ export default function Header() {
                 />
               </svg>
               <span className="font-bold text-brand lg:text-xl">Holidaze</span>
-            </span>
+            </div>
           </a>
 
           {isMobile && <NavButton setIsOpen={setIsMenuOpen} />}
