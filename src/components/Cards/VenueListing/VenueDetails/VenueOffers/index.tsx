@@ -6,7 +6,8 @@ export default function VenueOffers({ meta }: VenueOffersProps) {
   return (
     <div className="grid max-w-screen-md gap-4">
       <h2 className="text-xl font-semibold text-text">Offers</h2>
-      <div className="grid gap-1 md:grid-flow-col md:grid-rows-2">
+
+      <div className="grid gap-1 sm:grid-flow-col sm:grid-rows-2">
         <div className="flex items-center gap-1 py-1 text-text">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -23,6 +24,7 @@ export default function VenueOffers({ meta }: VenueOffersProps) {
             <span className="line-through">Breakfast not included</span>
           )}
         </div>
+
         <div className="flex items-center gap-1 py-1 text-text">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -38,6 +40,7 @@ export default function VenueOffers({ meta }: VenueOffersProps) {
             <span className="line-through">Parking not allowed</span>
           )}
         </div>
+
         <div className="flex items-center gap-1 py-1 text-text">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -53,6 +56,7 @@ export default function VenueOffers({ meta }: VenueOffersProps) {
             <span className="line-through">Pets not allowed</span>
           )}
         </div>
+
         <div className="flex items-center gap-1 py-1 text-text">
           <svg
             xmlns="http://www.w3.org/2000/svg"

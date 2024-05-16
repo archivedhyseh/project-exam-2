@@ -6,7 +6,7 @@ type VenueHostProps = {
 
 export default function VenueHost({ owner }: VenueHostProps) {
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex max-w-screen-md items-center gap-2">
       <div className="h-12 w-12">
         <img
           src={owner?.avatar.url}

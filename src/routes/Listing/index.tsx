@@ -7,7 +7,7 @@ export default function Listing() {
   const { id } = useParams()
 
   const { data, error, isSuccess, isError } = useQuery({
-    queryKey: ['room'],
+    queryKey: ['listing'],
     queryFn: async () => {
       const res = await fetch(
         `https://v2.api.noroff.dev/holidaze/venues/${id}?_owner=true&_bookings=true`,
@@ -40,6 +40,7 @@ export default function Listing() {
           media={data.media}
           price={data.price}
           maxGuests={data.maxGuests}
+          rating={data.rating}
           meta={data.meta}
           location={data.location}
           owner={data.owner}

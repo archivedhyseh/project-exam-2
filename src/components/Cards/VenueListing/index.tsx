@@ -9,6 +9,7 @@ type VenueListingProps = {
   media: { url: string; alt: string }[]
   price: number
   maxGuests: number
+  rating: number
   meta: { wifi: boolean; parking: boolean; breakfast: boolean; pets: boolean }
   location: {
     address: string
@@ -29,6 +30,7 @@ export default function VenueListing({
   media,
   price,
   maxGuests,
+  rating,
   meta,
   location,
   owner,
@@ -42,6 +44,8 @@ export default function VenueListing({
           <VenueDetails
             name={name}
             description={description}
+            maxGuests={maxGuests}
+            rating={rating}
             meta={meta}
             location={location}
             owner={owner}

@@ -1,15 +1,14 @@
 import { Profile } from '../../../../api/types'
-import {
-  formatCity,
-  formatCountry,
-  formatName,
-} from '../../../../utility/format'
+import VenueDescription from './VenueDescription'
+import VenueHeading from './VenueHeading'
 import VenueHost from './VenueHost'
 import VenueOffers from './VenueOffers'
 
 type VenueDetailsProps = {
   name: string
   description: string
+  maxGuests: number
+  rating: number
   meta: { wifi: boolean; parking: boolean; breakfast: boolean; pets: boolean }
   location: {
     address: string
@@ -26,30 +25,24 @@ type VenueDetailsProps = {
 export default function VenueDetails({
   name,
   description,
+  maxGuests,
+  rating,
   meta,
   location,
   owner,
 }: VenueDetailsProps) {
   return (
     <>
-      <div className="grid gap-4">
-        <div className="grid gap-1">
-          <span className="line-clamp-1 font-semibold text-text">
-            {formatCity(location.city)}, {formatCountry(location.country)}
-          </span>
+      <VenueHeading
+        name={name}
+        maxGuests={maxGuests}
+        rating={rating}
+        location={location}
+      />
 
-          <h1 className="break-all text-3xl font-bold text-text">
-            {formatName(name)}
-          </h1>
-        </div>
+      <hr className="border-black-alt" />
 
-        <p className="grid gap-1">
-          <span className="text-text-muted">Description</span>
-          <span className="line-clamp-6 max-w-screen-md text-text">
-            {description}
-          </span>
-        </p>
-      </div>
+      <VenueDescription description={description} />
 
       <hr className="border-black-alt" />
 

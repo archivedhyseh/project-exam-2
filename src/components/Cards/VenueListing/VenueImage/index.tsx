@@ -28,7 +28,7 @@ export default function VenueImage({ media, name }: VenueImageProps) {
       {media.length > 0 && (
         <>
           <button
-            className="absolute left-0 top-0 h-full w-full rounded-lg"
+            className="absolute left-0 top-0 h-full w-full rounded-lg hover:bg-black/30"
             onClick={() => setIsModalOpen(true)}
           >
             <span className="sr-only">Open image modal</span>
