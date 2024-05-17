@@ -17,17 +17,19 @@ export default function Input({
   ...props
 }: InputProps) {
   return (
-    <div className="flex flex-col gap-2">
-      <label htmlFor={id} className="text-text">
+    <div className="flex flex-col gap-4">
+      <label htmlFor={id} className="font-semibold text-text">
         {label}
       </label>
+
       <input
-        {...props}
-        {...register(id)}
         id={id}
-        className="rounded-md border border-black-alt px-3 py-2 text-text placeholder:text-text-muted md:rounded-lg lg:px-5 lg:py-3"
+        {...register(id)}
+        {...props}
+        className="rounded-md border border-black-alt px-3 py-2 text-text placeholder:text-text-muted lg:rounded-lg lg:px-5 lg:py-3"
       />
-      {errors[id] && <span>{errors[id]?.message}</span>}
+
+      {errors[id] && <span className="text-text">{errors[id]?.message}</span>}
     </div>
   )
 }

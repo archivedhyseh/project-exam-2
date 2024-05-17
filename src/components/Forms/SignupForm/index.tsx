@@ -1,15 +1,16 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { ZodType, z } from 'zod'
 import Input from './Input'
 import PrimaryButton from '../../Buttons/PrimaryButton'
-import { Link } from 'react-router-dom'
-import { useMutation } from '@tanstack/react-query'
 
 export type FormValues = {
   name: string
   email: string
   password: string
+  venueManager?: boolean
 }
 
 const schema: ZodType<FormValues> = z.object({
@@ -25,9 +26,28 @@ const schema: ZodType<FormValues> = z.object({
   password: z
     .string()
     .min(8, { message: 'Password must be 8 or more characters long.' }),
+  venueManager: z.boolean().default(true),
 })
 
+const fetchRegister = async (body: FormValues) => {
+  const res = await fetch('https://v2.api.noroff.dev/auth/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  })
+
+  const { errors } = await res.json()
+
+  if (errors) {
+    throw new Error(errors[0].message)
+  }
+}
+
 export default function SignupForm() {
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
@@ -35,68 +55,58 @@ export default function SignupForm() {
   } = useForm<FormValues>({ resolver: zodResolver(schema) })
 
   const { mutate, error, isError } = useMutation({
-    mutationFn: async (body: FormValues) => {
-      const res = await fetch('https://v2.api.noroff.dev/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
-      })
-      const { errors } = await res.json()
-
-      if (errors) {
-        throw new Error(errors[0].message)
-      }
+    mutationFn: fetchRegister,
+    onSuccess: () => {
+      navigate('/login', { replace: true })
     },
   })
 
-  function onSubmit(data: FormValues) {
+  const onSubmit = (data: FormValues) => {
     mutate(data)
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
-      <div className="flex flex-col gap-3">
-        <Input
-          type="text"
-          label="Username"
-          id="name"
-          register={register}
-          errors={errors}
-        />
-        <Input
-          type="email"
-          label="Email"
-          id="email"
-          register={register}
-          errors={errors}
-        />
-        <Input
-          type="password"
-          label="Password"
-          id="password"
-          register={register}
-          errors={errors}
-        />
-      </div>
+    <form
+      id="signupForm"
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col gap-4"
+    >
+      <Input
+        type="text"
+        placeholder="Username"
+        id="name"
+        label="Username"
+        register={register}
+        errors={errors}
+      />
+
+      <Input
+        type="email"
+        placeholder="Email"
+        id="email"
+        label="Email"
+        register={register}
+        errors={errors}
+      />
+
+      <Input
+        type="password"
+        placeholder="Password"
+        id="password"
+        label="Password"
+        register={register}
+        errors={errors}
+      />
+
+      <PrimaryButton size="full" form="signupForm" type="submit">
+        Sign up
+      </PrimaryButton>
 
       {isError && (
         <div>
           <span>{error.message}.</span>
         </div>
       )}
-
-      <PrimaryButton size="full" onClick={() => onSubmit}>
-        Sign up
-      </PrimaryButton>
-
-      <span className="text-text">
-        Have an account?{' '}
-        <Link to="/login" className="font-bold text-text">
-          Log in
-        </Link>
-      </span>
     </form>
   )
 }
