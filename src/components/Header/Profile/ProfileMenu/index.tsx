@@ -1,12 +1,23 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { profileAuthRoutes, profileRoutes } from '../../data'
 
 type ProfileMenuProps = {
-  setIsOpen: (value: boolean) => void
+  setIsDropdownOpen: (value: boolean) => void
 }
 
-export default function ProfileMenu({ setIsOpen }: ProfileMenuProps) {
+export default function ProfileMenu({ setIsDropdownOpen }: ProfileMenuProps) {
+  const navigate = useNavigate()
+
   const accessToken = localStorage.getItem('accessToken')
+
+  const handleLogout = () => {
+    localStorage.removeItem('name')
+    localStorage.removeItem('accessToken')
+
+    setIsDropdownOpen(false)
+
+    navigate('/', { replace: true })
+  }
 
   return (
     <div className="absolute right-0 mt-2 flex min-w-60 flex-col whitespace-nowrap rounded-lg bg-background py-2 shadow">
@@ -17,7 +28,7 @@ export default function ProfileMenu({ setIsOpen }: ProfileMenuProps) {
               <Link
                 key={index}
                 to={route.href}
-                onClick={() => setIsOpen(false)}
+                onClick={() => setIsDropdownOpen(false)}
                 className="inline-flex w-full px-5 py-3 hover:bg-background-alt"
               >
                 {route.title}
@@ -29,7 +40,7 @@ export default function ProfileMenu({ setIsOpen }: ProfileMenuProps) {
               <Link
                 key={index}
                 to={route.href}
-                onClick={() => setIsOpen(false)}
+                onClick={() => setIsDropdownOpen(false)}
                 className="inline-flex w-full px-5 py-3 hover:bg-background-alt"
               >
                 {route.title}
@@ -42,7 +53,10 @@ export default function ProfileMenu({ setIsOpen }: ProfileMenuProps) {
             <hr className="border-black-alt" />
 
             <div className="flex flex-col">
-              <button className="inline-flex w-full px-5 py-3 hover:bg-background-alt">
+              <button
+                className="inline-flex w-full px-5 py-3 hover:bg-background-alt"
+                onClick={() => handleLogout()}
+              >
                 Log out
               </button>
             </div>

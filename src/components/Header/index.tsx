@@ -1,23 +1,24 @@
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
+import { FocusOn } from 'react-focus-on'
 import Navbar from './Nav/Navbar'
 import NavButton from './Nav/NavButton'
 import NavMenu from './Nav/NavMenu'
 import ProfileButton from './Profile/ProfileButton'
 import ProfileMenu from './Profile/ProfileMenu'
-import { createPortal } from 'react-dom'
-import { FocusOn } from 'react-focus-on'
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
+  const [isNavOpen, setIsNavOpen] = useState<boolean>(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
   const [isMobile, setIsMobile] = useState<boolean>(
     window.matchMedia('(max-width: 959px)').matches
   )
 
-  const dropdownMenuRef = useRef<null | HTMLDivElement>(null)
+  const dropdownRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     const size = window.matchMedia('(max-width: 959px)')
+
     size.addEventListener('change', (e) => setIsMobile(e.matches))
 
     return () => {
@@ -26,31 +27,32 @@ export default function Header() {
   }, [])
 
   useEffect(() => {
-    if (isMenuOpen) {
-      setIsMenuOpen(false)
-    }
-  }, [isMobile])
-
-  useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (
-        isDropdownOpen &&
-        !dropdownMenuRef.current?.contains(e.target as Element)
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Element)
       ) {
         setIsDropdownOpen(false)
       }
     }
+
     document.addEventListener('mousedown', handleClickOutside)
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [isDropdownOpen])
+  }, [])
+
+  useEffect(() => {
+    if (isNavOpen) {
+      setIsNavOpen(false)
+    }
+  }, [isMobile])
 
   return (
     <header className="sticky left-0 top-0 z-[800] bg-background lg:static">
       <div className="mx-auto max-w-screen-2xl px-4 py-5 lg:py-4">
-        <div className="flex justify-between gap-5">
+        <div className="flex justify-between gap-4">
           <a
             href="/"
             aria-label="Holidaze"
@@ -78,24 +80,26 @@ export default function Header() {
             </div>
           </a>
 
-          {isMobile && <NavButton setIsOpen={setIsMenuOpen} />}
+          {isMobile && <NavButton setIsOpen={setIsNavOpen} />}
           {!isMobile && <Navbar />}
           {!isMobile && (
-            <div className="relative" ref={dropdownMenuRef}>
+            <div className="relative" ref={dropdownRef}>
               <ProfileButton
                 isOpen={isDropdownOpen}
                 setIsOpen={setIsDropdownOpen}
               />
-              {isDropdownOpen && <ProfileMenu setIsOpen={setIsDropdownOpen} />}
+              {isDropdownOpen && (
+                <ProfileMenu setIsDropdownOpen={setIsDropdownOpen} />
+              )}
             </div>
           )}
         </div>
       </div>
 
-      {isMenuOpen &&
+      {isNavOpen &&
         createPortal(
-          <FocusOn onEscapeKey={() => setIsMenuOpen(false)}>
-            <NavMenu setIsOpen={setIsMenuOpen} />
+          <FocusOn onEscapeKey={() => setIsNavOpen(false)}>
+            <NavMenu setIsNavOpen={setIsNavOpen} />
           </FocusOn>,
           document.getElementById('portal')!
         )}

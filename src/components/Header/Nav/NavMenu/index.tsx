@@ -1,20 +1,31 @@
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { navAuthRoutes, navRoutes } from '../../data'
 import IconButton from '../../../Buttons/IconButton'
 import SecondaryButton from '../../../Buttons/SecondaryButton'
 
 type NavMenuProps = {
-  setIsOpen: (value: boolean) => void
+  setIsNavOpen: (value: boolean) => void
 }
 
-export default function NavMenu({ setIsOpen }: NavMenuProps) {
+export default function NavMenu({ setIsNavOpen }: NavMenuProps) {
+  const navigate = useNavigate()
+
   const accessToken = localStorage.getItem('accessToken')
+
+  const handleLogout = () => {
+    localStorage.removeItem('name')
+    localStorage.removeItem('accessToken')
+
+    setIsNavOpen(false)
+
+    navigate('/', { replace: true })
+  }
 
   return (
     <div className="fixed left-0 top-0 z-[1000] flex h-full w-full justify-end bg-black/30">
       <nav className="flex h-full w-full flex-col gap-2 bg-background px-4 py-5 shadow sm:max-w-[376px] sm:rounded-l-md">
         <div className="flex justify-end">
-          <IconButton onClick={() => setIsOpen(false)}>
+          <IconButton onClick={() => setIsNavOpen(false)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -39,7 +50,7 @@ export default function NavMenu({ setIsOpen }: NavMenuProps) {
               <NavLink
                 key={index}
                 to={route.href}
-                onClick={() => setIsOpen(false)}
+                onClick={() => setIsNavOpen(false)}
                 className={({ isActive }) =>
                   isActive
                     ? 'inline-flex rounded-md py-2 font-bold text-text lg:rounded-full'
@@ -55,7 +66,7 @@ export default function NavMenu({ setIsOpen }: NavMenuProps) {
                 <NavLink
                   key={index}
                   to={route.href}
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => setIsNavOpen(false)}
                   className={({ isActive }) =>
                     isActive
                       ? 'inline-flex rounded-md py-2 font-bold text-text lg:rounded-full'
@@ -68,11 +79,13 @@ export default function NavMenu({ setIsOpen }: NavMenuProps) {
           </div>
 
           {accessToken ? (
-            <SecondaryButton size="full">Log out</SecondaryButton>
+            <SecondaryButton size="full" onClick={() => handleLogout()}>
+              Log out
+            </SecondaryButton>
           ) : (
             <Link
               to="/login"
-              onClick={() => setIsOpen(false)}
+              onClick={() => setIsNavOpen(false)}
               className="inline-flex w-full justify-center gap-2 rounded-full bg-brand px-3 py-2 font-bold text-white hover:bg-brand-hover lg:px-5 lg:py-3"
             >
               Sign in
