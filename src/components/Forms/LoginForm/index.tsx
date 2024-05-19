@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { ZodType, z } from 'zod'
 import Input from './Input'
 import PrimaryButton from '../../Buttons/PrimaryButton'
@@ -39,6 +39,7 @@ const fetchLogin = async (body: FormValues) => {
 
 export default function LoginForm() {
   const navigate = useNavigate()
+  const location = useLocation()
 
   const {
     register,
@@ -49,11 +50,15 @@ export default function LoginForm() {
   const { mutate, error, isError } = useMutation({
     mutationFn: fetchLogin,
     onSuccess: () => {
-      navigate('/venues', { replace: true })
+      if (location.pathname.includes('/login')) {
+        navigate('/venues', { replace: true })
+      }
+
+      navigate(0)
     },
   })
 
-  function onSubmit(data: FormValues) {
+  const onSubmit = (data: FormValues) => {
     mutate(data)
   }
 

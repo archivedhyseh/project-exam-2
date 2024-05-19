@@ -57,7 +57,11 @@ export default function SignupForm() {
   const { mutate, error, isError } = useMutation({
     mutationFn: fetchRegister,
     onSuccess: () => {
-      navigate('/login', { replace: true })
+      if (location.pathname.includes('/signup')) {
+        navigate('/venues', { replace: true })
+      }
+
+      navigate(0)
     },
   })
 
