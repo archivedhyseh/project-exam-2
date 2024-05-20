@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { Fragment, ReactNode } from 'react'
 
 type TabsPanelProps = {
   tabsData: { label: string; element: ReactNode }[]
@@ -10,7 +10,7 @@ export default function TabsPanel({ tabsData, tabsIndex }: TabsPanelProps) {
     <>
       {tabsData.map(
         (tab, index) =>
-          tabsIndex === index && <div key={index}>{tab.element}</div>
+          tabsIndex === index && <Fragment key={index}>{tab.element}</Fragment>
       )}
     </>
   )
