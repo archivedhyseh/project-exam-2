@@ -12,7 +12,7 @@ import { Errors, Meta, Venue } from '../../api/types'
 import VenueCard from '../../components/Cards/VenueCard'
 import SecondaryButton from '../../components/Buttons/SecondaryButton'
 import Search from './Search'
-import Filters from './Filter'
+import Filters from './Filters'
 
 type fetchVenuesProps = {
   pageParam: number

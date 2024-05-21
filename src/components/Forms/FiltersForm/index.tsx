@@ -2,10 +2,10 @@ import { FormEvent, useEffect } from 'react'
 import { DateRange } from 'react-day-picker'
 import { useSearchParams } from 'react-router-dom'
 import { addYears, format, parseISO } from 'date-fns'
-import Calendar from '../../../../components/Calendar'
+import Calendar from '../../Calendar'
 import Input from './Input'
 
-type FiltersMenuProps = {
+type FiltersFormProps = {
   setIsModalOpen: (value: boolean) => void
   selectedRange: DateRange | undefined
   setSelectedRange: (value: DateRange | undefined) => void
@@ -13,13 +13,13 @@ type FiltersMenuProps = {
   setTotalGuests: (value: string | undefined) => void
 }
 
-export default function FiltersMenu({
+export default function FiltersForm({
   setIsModalOpen,
   selectedRange,
   setSelectedRange,
   totalGuests,
   setTotalGuests,
-}: FiltersMenuProps) {
+}: FiltersFormProps) {
   const [searchParams, setSearchParams] = useSearchParams()
 
   useEffect(() => {
