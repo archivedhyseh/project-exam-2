@@ -7,7 +7,7 @@ export default function VenueOffers({ meta }: VenueOffersProps) {
     <div className="grid max-w-screen-md gap-4">
       <h2 className="text-xl font-semibold text-text">Offers</h2>
 
-      <div className="grid gap-1 sm:grid-flow-col sm:grid-rows-2">
+      <div className="grid gap-2 sm:grid-cols-2">
         <div className="flex items-center gap-1 py-1 text-text">
           <svg
             xmlns="http://www.w3.org/2000/svg"
