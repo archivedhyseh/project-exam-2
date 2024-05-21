@@ -80,7 +80,11 @@ const fetchHost = async (body: FormValues) => {
   return data
 }
 
-export default function HostForm() {
+type HostFormProps = {
+  setIsHostOpen: (value: boolean) => void
+}
+
+export default function HostForm({ setIsHostOpen }: HostFormProps) {
   const navigate = useNavigate()
 
   const {
@@ -104,6 +108,7 @@ export default function HostForm() {
     mutationFn: fetchHost,
     onSuccess: (data) => {
       navigate(`/venue/${data.id}`)
+      setIsHostOpen(false)
     },
   })
 

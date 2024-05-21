@@ -119,7 +119,7 @@ export default function Header() {
         setIsModalOpen={setIsHostOpen}
         modalFooter={<HostFooter setIsHostOpen={setIsHostOpen} />}
       >
-        <HostForm />
+        <HostForm setIsHostOpen={setIsHostOpen} />
       </Modal>
     </header>
   )

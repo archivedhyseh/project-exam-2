@@ -16,12 +16,7 @@ export default function HostFooter({ setIsHostOpen }: HostFooterProps) {
       >
         Cancel
       </TertiaryButton>
-      <SecondaryButton
-        size="default"
-        form="hostForm"
-        type="submit"
-        onClick={() => setIsHostOpen(false)}
-      >
+      <SecondaryButton size="default" form="hostForm" type="submit">
         Host venue
       </SecondaryButton>
     </div>
