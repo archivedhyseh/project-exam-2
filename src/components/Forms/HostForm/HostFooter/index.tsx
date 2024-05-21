@@ -10,7 +10,7 @@ export default function HostFooter({ setIsHostOpen }: HostFooterProps) {
     <div className="flex justify-end gap-2">
       <TertiaryButton
         size="default"
-        form="filtersForm"
+        form="hostForm"
         type="button"
         onClick={() => setIsHostOpen(false)}
       >
