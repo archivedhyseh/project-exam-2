@@ -19,7 +19,7 @@ export const navAuthRoutes = [
     href: '/dashboard',
   },
   {
-    title: 'Profile',
+    title: 'View profile',
     href: '/profile',
   },
 ]
@@ -41,7 +41,7 @@ export const profileAuthRoutes = [
     href: '/dashboard',
   },
   {
-    title: 'Profile',
+    title: 'View profile',
     href: '/profile',
   },
 ]

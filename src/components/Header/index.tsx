@@ -6,10 +6,14 @@ import NavButton from './Nav/NavButton'
 import NavMenu from './Nav/NavMenu'
 import ProfileButton from './Profile/ProfileButton'
 import ProfileMenu from './Profile/ProfileMenu'
+import Modal from '../Modal'
+import HostForm from '../Forms/HostForm'
+import HostFooter from '../Forms/HostForm/HostFooter'
 
 export default function Header() {
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
+  const [isHostOpen, setIsHostOpen] = useState<boolean>(false)
   const [isMobile, setIsMobile] = useState<boolean>(
     window.matchMedia('(max-width: 959px)').matches
   )
@@ -89,7 +93,10 @@ export default function Header() {
                 setIsOpen={setIsDropdownOpen}
               />
               {isDropdownOpen && (
-                <ProfileMenu setIsDropdownOpen={setIsDropdownOpen} />
+                <ProfileMenu
+                  setIsDropdownOpen={setIsDropdownOpen}
+                  setIsHostOpen={setIsHostOpen}
+                />
               )}
             </div>
           )}
@@ -99,10 +106,21 @@ export default function Header() {
       {isNavOpen &&
         createPortal(
           <FocusOn onEscapeKey={() => setIsNavOpen(false)}>
-            <NavMenu setIsNavOpen={setIsNavOpen} />
+            <NavMenu
+              setIsNavOpen={setIsNavOpen}
+              setIsHostOpen={setIsHostOpen}
+            />
           </FocusOn>,
           document.getElementById('portal')!
         )}
+
+      <Modal
+        isModalOpen={isHostOpen}
+        setIsModalOpen={setIsHostOpen}
+        modalFooter={<HostFooter setIsHostOpen={setIsHostOpen} />}
+      >
+        <HostForm />
+      </Modal>
     </header>
   )
 }

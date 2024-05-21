@@ -3,9 +3,13 @@ import { profileAuthRoutes, profileRoutes } from '../../data'
 
 type ProfileMenuProps = {
   setIsDropdownOpen: (value: boolean) => void
+  setIsHostOpen: (value: boolean) => void
 }
 
-export default function ProfileMenu({ setIsDropdownOpen }: ProfileMenuProps) {
+export default function ProfileMenu({
+  setIsDropdownOpen,
+  setIsHostOpen,
+}: ProfileMenuProps) {
   const navigate = useNavigate()
 
   const accessToken = localStorage.getItem('accessToken')
@@ -35,17 +39,30 @@ export default function ProfileMenu({ setIsDropdownOpen }: ProfileMenuProps) {
               </Link>
             ))}
 
-          {accessToken &&
-            profileAuthRoutes.map((route, index) => (
-              <Link
-                key={index}
-                to={route.href}
-                onClick={() => setIsDropdownOpen(false)}
+          {accessToken && (
+            <>
+              {profileAuthRoutes.map((route, index) => (
+                <Link
+                  key={index}
+                  to={route.href}
+                  onClick={() => setIsDropdownOpen(false)}
+                  className="inline-flex w-full px-5 py-3 hover:bg-background-alt"
+                >
+                  {route.title}
+                </Link>
+              ))}
+
+              <button
+                onClick={() => {
+                  setIsDropdownOpen(false)
+                  setIsHostOpen(true)
+                }}
                 className="inline-flex w-full px-5 py-3 hover:bg-background-alt"
               >
-                {route.title}
-              </Link>
-            ))}
+                Host venue
+              </button>
+            </>
+          )}
         </div>
 
         {accessToken && (
