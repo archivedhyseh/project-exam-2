@@ -5,6 +5,7 @@ export type Bookings = {
   guests: number
   created: string
   updated: string
+  venue: Venue
 }
 
 export type Venue = {
@@ -38,8 +39,8 @@ export type Profile = {
   avatar: { url: string; alt: string }
   venueManager: boolean
   _count: { bookings: number; venues: number }
-  bookings?: Bookings[]
-  venues?: Venue[]
+  bookings: Bookings[]
+  venues: Venue[]
 }
 
 export type Meta = {
