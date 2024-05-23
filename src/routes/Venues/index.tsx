@@ -31,6 +31,7 @@ const fetchVenues = async ({ pageParam, query }: fetchVenuesProps) => {
     url =
       'https://v2.api.noroff.dev/holidaze/venues/search' +
       `?q=${query}` +
+      `&page=${pageParam}` +
       '&limit=60' +
       '&sort=created' +
       '&_bookings=true'
