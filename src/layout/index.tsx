@@ -8,7 +8,7 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <>
       <Header />
-      <main className="flex-1">{children}</main>
+      <main className="mb-5 flex-1 lg:mb-4">{children}</main>
       <Footer />
     </>
   )
