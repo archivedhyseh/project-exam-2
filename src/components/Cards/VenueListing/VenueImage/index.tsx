@@ -20,7 +20,7 @@ export default function VenueImage({ media, name }: VenueImageProps) {
           />
         ) : (
           <div className="flex aspect-video h-full w-full items-center justify-center overflow-hidden rounded-lg bg-background-alt">
-            <span>No image available</span>
+            <span className="text-text">No image available</span>
           </div>
         )}
       </div>
