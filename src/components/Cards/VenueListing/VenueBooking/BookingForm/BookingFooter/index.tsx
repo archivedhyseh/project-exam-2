@@ -1,7 +1,7 @@
 import { DateRange } from 'react-day-picker'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
-import TertiaryButton from '../../../../Buttons/TertiaryButton'
-import SecondaryButton from '../../../../Buttons/SecondaryButton'
+import SecondaryButton from '../../../../../Buttons/SecondaryButton'
+import TertiaryButton from '../../../../../Buttons/TertiaryButton'
 
 type BookingFooterProps = {
   setIsModalOpen: (value: boolean) => void

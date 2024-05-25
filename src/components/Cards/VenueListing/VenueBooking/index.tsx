@@ -5,8 +5,8 @@ import { useSearchParams } from 'react-router-dom'
 import { Bookings } from '../../../../api/types'
 import Modal from '../../../Modal'
 import BookingButton from './BookingButton'
-import BookingFooter from './BookingFooter'
-import BookingMenu from './BookingMenu'
+import BookingFooter from './BookingForm/BookingFooter'
+import BookingForm from './BookingForm'
 import BookingPricing from './BookingPricing'
 
 type VenueBookingProps = {
@@ -67,7 +67,7 @@ export default function VenueBooking({
             />
           }
         >
-          <BookingMenu
+          <BookingForm
             bookings={bookings}
             maxGuests={maxGuests}
             setIsModalOpen={setIsModalOpen}

@@ -6,14 +6,13 @@ import {
   isBefore,
   startOfDay,
 } from 'date-fns'
-import { FormEvent } from 'react'
+import { FormEvent, useState } from 'react'
 import { DateRange } from 'react-day-picker'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { Bookings } from '../../../../../api/types'
 import Calendar from '../../../../Calendar'
-import Input from './Input'
 
-type BookingMenuProps = {
+type BookingFormProps = {
   bookings?: Bookings[]
   maxGuests: number
   setIsModalOpen: (value: boolean) => void
@@ -23,7 +22,7 @@ type BookingMenuProps = {
   setTotalGuests: (value: string | undefined) => void
 }
 
-export default function BookingMenu({
+export default function BookingForm({
   bookings,
   maxGuests,
   setIsModalOpen,
@@ -31,10 +30,13 @@ export default function BookingMenu({
   setSelectedRange,
   totalGuests,
   setTotalGuests,
-}: BookingMenuProps) {
+}: BookingFormProps) {
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
   const location = useLocation()
+
+  const [isBookingError, setIsBookingError] = useState<boolean>(false)
+  const [isGuestsError, setIsGuestsError] = useState<boolean>(false)
 
   const currentDate = new Date()
   const fromDate = currentDate
@@ -82,6 +84,18 @@ export default function BookingMenu({
   const handleOnSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
+    if (!selectedRange) {
+      setIsBookingError(true)
+    } else {
+      setIsBookingError(false)
+    }
+
+    if (!totalGuests) {
+      setIsGuestsError(true)
+    } else {
+      setIsGuestsError(false)
+    }
+
     if (selectedRange && totalGuests) {
       const { from, to } = selectedRange
 
@@ -128,19 +142,33 @@ export default function BookingMenu({
           toDate={toDate}
           disabled={disabledDays}
         />
+
+        {isBookingError && (
+          <span className="text-text">Booking is required.</span>
+        )}
       </div>
 
-      <Input
-        type="number"
-        labelTitle="Guests"
-        labelDescription="How many are staying?"
-        placeholder="2"
-        id="guests"
-        min={1}
-        max={maxGuests}
-        value={totalGuests}
-        onChange={(e) => setTotalGuests(e.target.value)}
-      />
+      <div className="flex flex-col gap-2">
+        <label htmlFor="guests" className="flex flex-col">
+          <span className="text-xl font-semibold text-text">Guests</span>
+          <span className="text-text-muted">How many is staying?</span>
+        </label>
+
+        <input
+          type="number"
+          placeholder="2"
+          id="guests"
+          min={1}
+          max={maxGuests}
+          value={totalGuests}
+          onChange={(e) => setTotalGuests(e.target.value)}
+          className="w-full rounded-md border border-black-alt px-3 py-2 text-text placeholder:text-text-muted md:rounded-lg lg:px-5 lg:py-3"
+        />
+
+        {isGuestsError && (
+          <span className="text-text">Guests is required.</span>
+        )}
+      </div>
     </form>
   )
 }
