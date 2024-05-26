@@ -10,8 +10,8 @@ import Root from './routes/Root/index.tsx'
 import Venues from './routes/Venues/index.tsx'
 import Listing from './routes/Listing/index.tsx'
 import Booking from './routes/Booking/index.tsx'
+import Support from './routes/Support/index.tsx'
 import Dashboard from './routes/Dashboard/index.tsx'
-import Profile from './routes/Profile/index.tsx'
 import Signup from './routes/Signup/index.tsx'
 import Login from './routes/Login/index.tsx'
 
@@ -39,12 +39,12 @@ const router = createBrowserRouter([
         element: <Booking />,
       },
       {
-        path: '/dashboard',
-        element: <Dashboard />,
+        path: '/support',
+        element: <Support />,
       },
       {
-        path: '/profile',
-        element: <Profile />,
+        path: '/dashboard',
+        element: <Dashboard />,
       },
       {
         path: '/signup',
