@@ -37,6 +37,7 @@ export type Profile = {
   email: string
   banner: { url: string; alt: string }
   avatar: { url: string; alt: string }
+  bio: string
   venueManager: boolean
   _count: { bookings: number; venues: number }
   bookings: Bookings[]
