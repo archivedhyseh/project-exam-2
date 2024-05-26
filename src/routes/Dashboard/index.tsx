@@ -34,7 +34,7 @@ const fetchProfile = async () => {
 
 export default function Dashboard() {
   const { data, error, isSuccess, isError } = useQuery({
-    queryKey: ['profile'],
+    queryKey: ['dashboard'],
     queryFn: fetchProfile,
   })
 
