@@ -5,15 +5,18 @@ import Navbar from './Nav/Navbar'
 import NavButton from './Nav/NavButton'
 import NavMenu from './Nav/NavMenu'
 import ProfileButton from './Profile/ProfileButton'
-import ProfileMenu from './Profile/ProfileMenu'
+import ProfileDropdown from './Profile/ProfileDropdown'
 import Modal from '../Modal'
 import HostForm from '../Forms/HostForm'
 import HostFooter from '../Forms/HostForm/HostFooter'
+import ProfileMenu from './Profile/ProfileMenu'
+import ProfileFooter from '../Forms/ProfileForm/ProfileFooter'
 
 export default function Header() {
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
   const [isHostOpen, setIsHostOpen] = useState<boolean>(false)
+  const [isProfileOpen, setIsProfileOpen] = useState<boolean>(false)
   const [isMobile, setIsMobile] = useState<boolean>(
     window.matchMedia('(max-width: 959px)').matches
   )
@@ -93,9 +96,10 @@ export default function Header() {
                 setIsOpen={setIsDropdownOpen}
               />
               {isDropdownOpen && (
-                <ProfileMenu
+                <ProfileDropdown
                   setIsDropdownOpen={setIsDropdownOpen}
                   setIsHostOpen={setIsHostOpen}
+                  setIsProfileOpen={setIsProfileOpen}
                 />
               )}
             </div>
@@ -109,6 +113,7 @@ export default function Header() {
             <NavMenu
               setIsNavOpen={setIsNavOpen}
               setIsHostOpen={setIsHostOpen}
+              setIsProfileOpen={setIsProfileOpen}
             />
           </FocusOn>,
           document.getElementById('portal')!
@@ -120,6 +125,14 @@ export default function Header() {
         modalFooter={<HostFooter setIsHostOpen={setIsHostOpen} />}
       >
         <HostForm setIsHostOpen={setIsHostOpen} />
+      </Modal>
+
+      <Modal
+        isModalOpen={isProfileOpen}
+        setIsModalOpen={setIsProfileOpen}
+        modalFooter={<ProfileFooter setIsProfileOpen={setIsProfileOpen} />}
+      >
+        <ProfileMenu setIsProfileOpen={setIsProfileOpen} />
       </Modal>
     </header>
   )

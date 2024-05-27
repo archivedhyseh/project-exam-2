@@ -1,14 +1,19 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { navAuthRoutes, navRoutes } from '../../data'
+import { authRoutes, navRoutes } from '../../data'
 import IconButton from '../../../Buttons/IconButton'
 import SecondaryButton from '../../../Buttons/SecondaryButton'
 
 type NavMenuProps = {
   setIsNavOpen: (value: boolean) => void
   setIsHostOpen: (value: boolean) => void
+  setIsProfileOpen: (value: boolean) => void
 }
 
-export default function NavMenu({ setIsNavOpen, setIsHostOpen }: NavMenuProps) {
+export default function NavMenu({
+  setIsNavOpen,
+  setIsHostOpen,
+  setIsProfileOpen,
+}: NavMenuProps) {
   const navigate = useNavigate()
 
   const accessToken = localStorage.getItem('accessToken')
@@ -64,7 +69,7 @@ export default function NavMenu({ setIsNavOpen, setIsHostOpen }: NavMenuProps) {
 
             {accessToken && (
               <>
-                {navAuthRoutes.map((route, index) => (
+                {authRoutes.map((route, index) => (
                   <NavLink
                     key={index}
                     to={route.href}
@@ -78,6 +83,16 @@ export default function NavMenu({ setIsNavOpen, setIsHostOpen }: NavMenuProps) {
                     {route.title}
                   </NavLink>
                 ))}
+
+                <button
+                  onClick={() => {
+                    setIsNavOpen(false)
+                    setIsProfileOpen(true)
+                  }}
+                  className="inline-flex rounded-md py-2 text-text hover:text-text-muted lg:rounded-full"
+                >
+                  View profile
+                </button>
 
                 <button
                   onClick={() => {

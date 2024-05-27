@@ -13,17 +13,6 @@ export const navRoutes = [
   },
 ]
 
-export const navAuthRoutes = [
-  {
-    title: 'Dashboard',
-    href: '/dashboard',
-  },
-  {
-    title: 'View profile',
-    href: '/profile',
-  },
-]
-
 export const profileRoutes = [
   {
     title: 'Sign up',
@@ -35,13 +24,9 @@ export const profileRoutes = [
   },
 ]
 
-export const profileAuthRoutes = [
+export const authRoutes = [
   {
     title: 'Dashboard',
     href: '/dashboard',
-  },
-  {
-    title: 'View profile',
-    href: '/profile',
   },
 ]
