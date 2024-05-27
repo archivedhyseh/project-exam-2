@@ -6,6 +6,7 @@ export type Bookings = {
   created: string
   updated: string
   venue: Venue
+  customer: Profile
 }
 
 export type Venue = {
