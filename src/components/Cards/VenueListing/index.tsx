@@ -1,63 +1,46 @@
-import { Bookings, Profile } from '../../../api/types'
+import { Venue } from '../../../api/types'
 import VenueBooking from './VenueBooking'
 import VenueDetails from './VenueDetails'
 import VenueImage from './VenueImage'
+import VenueManage from './VenueManage'
 
 type VenueListingProps = {
-  name: string
-  description: string
-  media: { url: string; alt: string }[]
-  price: number
-  maxGuests: number
-  rating: number
-  meta: { wifi: boolean; parking: boolean; breakfast: boolean; pets: boolean }
-  location: {
-    address: string
-    city: string
-    zip: string
-    country: string
-    continent: string
-    lat: number
-    lng: number
-  }
-  owner?: Profile
-  bookings?: Bookings[]
+  venue: Venue
 }
 
-export default function VenueListing({
-  name,
-  description,
-  media,
-  price,
-  maxGuests,
-  rating,
-  meta,
-  location,
-  owner,
-  bookings,
-}: VenueListingProps) {
+export default function VenueListing({ venue }: VenueListingProps) {
+  const username = localStorage.getItem('name')
+
   return (
     <>
       <div className="grid gap-4 gap-y-8 lg:grid-cols-3">
-        <div className="grid gap-8 lg:col-span-2">
-          <VenueImage media={media} name={name} />
-          <VenueDetails
-            name={name}
-            description={description}
-            maxGuests={maxGuests}
-            rating={rating}
-            meta={meta}
-            location={location}
-            owner={owner}
-          />
+        <div className="grid lg:col-span-2">
+          <div className="flex flex-col gap-8">
+            <VenueImage media={venue.media} name={venue.name} />
+            <VenueDetails
+              name={venue.name}
+              description={venue.description}
+              maxGuests={venue.maxGuests}
+              rating={venue.rating}
+              meta={venue.meta}
+              location={venue.location}
+              owner={venue.owner}
+            />
+          </div>
         </div>
 
         <div className="lg:col-span-1">
-          <VenueBooking
-            bookings={bookings}
-            price={price}
-            maxGuests={maxGuests}
-          />
+          <div className="flex h-full flex-col gap-8">
+            {venue.owner && venue.owner.name === username ? (
+              <VenueManage venue={venue} />
+            ) : (
+              <VenueBooking
+                bookings={venue.bookings}
+                price={venue.price}
+                maxGuests={venue.maxGuests}
+              />
+            )}
+          </div>
         </div>
       </div>
     </>
