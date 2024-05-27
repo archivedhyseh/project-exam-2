@@ -24,22 +24,20 @@ export default function VenueDetails({
   location,
 }: VenueDetailsProps) {
   return (
-    <div>
+    <div className="flex flex-col gap-2">
       <div>
         <span className="line-clamp-1 text-text-muted">
           {formatCity(location.city)}, {formatCountry(location.country)}
         </span>
+
+        <h2 className="line-clamp-1 text-ellipsis break-all font-bold text-text">
+          {formatName(name)}
+        </h2>
       </div>
 
-      <div className="flex flex-col gap-2">
-        <span className="line-clamp-1 text-ellipsis break-all font-bold text-text">
-          {formatName(name)}
-        </span>
-
-        <div>
-          <span className="font-semibold text-text">€{price} </span>
-          <span className="font-normal text-text">night</span>
-        </div>
+      <div>
+        <span className="font-semibold text-text">€{price} </span>
+        <span className="font-normal text-text">night</span>
       </div>
     </div>
   )

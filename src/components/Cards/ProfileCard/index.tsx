@@ -16,7 +16,7 @@ export default function ProfileCard({
 }: ProfileCardProps) {
   return (
     <div className="flex flex-col gap-4">
-      <ProfileAvatar avatar={avatar} />
+      <ProfileAvatar avatar={avatar} name={name} />
 
       <ProfileDetails name={name} email={email} bio={bio} />
     </div>

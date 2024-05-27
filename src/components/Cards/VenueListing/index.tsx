@@ -24,23 +24,21 @@ export default function VenueListing({ venue }: VenueListingProps) {
               rating={venue.rating}
               meta={venue.meta}
               location={venue.location}
-              owner={venue.owner}
+              owner={venue.owner!}
             />
           </div>
         </div>
 
         <div className="lg:col-span-1">
-          <div className="flex h-full flex-col gap-8">
-            {venue.owner && venue.owner.name === username ? (
-              <VenueManage venue={venue} />
-            ) : (
-              <VenueBooking
-                bookings={venue.bookings}
-                price={venue.price}
-                maxGuests={venue.maxGuests}
-              />
-            )}
-          </div>
+          {venue.owner && venue.owner.name === username ? (
+            <VenueManage venue={venue} />
+          ) : (
+            <VenueBooking
+              bookings={venue.bookings}
+              price={venue.price}
+              maxGuests={venue.maxGuests}
+            />
+          )}
         </div>
       </div>
     </>

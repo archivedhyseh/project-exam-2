@@ -73,15 +73,6 @@ export default function VenueManage({ venue }: VenueManageProps) {
 
         <div className="grid gap-1">
           <div className="flex justify-between">
-            <span className="text-text">Pricing </span>
-
-            <div>
-              <span className="font-semibold text-text">€{venue.price} </span>
-              <span className="font-normal text-text">night</span>
-            </div>
-          </div>
-
-          <div className="flex justify-between">
             <span className="text-text">Bookings </span>
 
             <div>
@@ -91,6 +82,15 @@ export default function VenueManage({ venue }: VenueManageProps) {
               >
                 <span>View bookings</span>
               </button>
+            </div>
+          </div>
+
+          <div className="flex justify-between">
+            <span className="text-text">Pricing </span>
+
+            <div>
+              <span className="font-semibold text-text">€{venue.price} </span>
+              <span className="font-normal text-text">night</span>
             </div>
           </div>
         </div>

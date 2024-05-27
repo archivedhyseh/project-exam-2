@@ -27,7 +27,6 @@ export default function BookingsCard({
       <div className="grid gap-4 md:grid-cols-2">
         <div>
           <h3 className="font-semibold text-text">Dates</h3>
-
           <span className="text-text">
             {checkin} - {checkout}
           </span>
@@ -35,7 +34,6 @@ export default function BookingsCard({
 
         <div>
           <h3 className="font-semibold text-text">Guests</h3>
-
           <span className="text-text">
             {guests === 1 ? `${guests} guest` : `${guests} guests`}
           </span>

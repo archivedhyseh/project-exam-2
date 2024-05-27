@@ -30,23 +30,21 @@ export default function VenueDetails({
   const checkout = format(dateTo, 'dd LLL yyyy')
 
   return (
-    <div>
+    <div className="flex flex-col gap-2">
       <div>
         <span className="line-clamp-1 text-text-muted">
           {formatCity(location.city)}, {formatCountry(location.country)}
         </span>
+
+        <h2 className="line-clamp-1 text-ellipsis break-all font-bold text-text">
+          {formatName(name)}
+        </h2>
       </div>
 
-      <div className="flex flex-col gap-2">
-        <span className="line-clamp-1 text-ellipsis break-all font-bold text-text">
-          {formatName(name)}
+      <div>
+        <span className="text-text">
+          {checkin} - {checkout}
         </span>
-
-        <div>
-          <span className="text-text">
-            {checkin} - {checkout}
-          </span>
-        </div>
       </div>
     </div>
   )

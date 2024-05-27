@@ -19,7 +19,7 @@ type VenueDetailsProps = {
     lat: number
     lng: number
   }
-  owner?: Profile
+  owner: Profile
 }
 
 export default function VenueDetails({

@@ -1,3 +1,4 @@
+import { Fragment } from 'react/jsx-runtime'
 import { Bookings } from '../../../../../api/types'
 import BookingsCard from '../BookingsCard'
 
@@ -19,9 +20,8 @@ export default function BookingsList({ bookings }: BookingsListProps) {
     <div className="flex flex-col gap-8">
       {bookings.length > 1 ? (
         bookings.map(({ id, dateFrom, dateTo, guests, customer }) => (
-          <>
+          <Fragment key={id}>
             <BookingsCard
-              key={id}
               dateFrom={dateFrom}
               dateTo={dateTo}
               guests={guests}
@@ -29,7 +29,7 @@ export default function BookingsList({ bookings }: BookingsListProps) {
             />
 
             <hr className="border-black-alt" />
-          </>
+          </Fragment>
         ))
       ) : (
         <span className="text-text">
