@@ -154,7 +154,7 @@ export default function HostForm({ setIsHostOpen }: HostFormProps) {
                   htmlFor={`media.${index}.alt`}
                   className="font-semibold text-text"
                 >
-                  Media {index + 1} alternative text
+                  Media {index + 1} description
                 </label>
 
                 <input
@@ -397,7 +397,7 @@ export default function HostForm({ setIsHostOpen }: HostFormProps) {
 
       {isError && (
         <div>
-          <span>{error.message}.</span>
+          <span className="text-text">{error.message}.</span>
         </div>
       )}
     </form>

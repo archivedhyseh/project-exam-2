@@ -99,7 +99,7 @@ export default function ProfileForm({
 
         <div className="flex flex-col gap-4">
           <label htmlFor="avatar.alt" className="font-semibold text-text">
-            Avatar alternative text
+            Avatar description
           </label>
 
           <input
@@ -134,7 +134,7 @@ export default function ProfileForm({
 
       {isError && (
         <div>
-          <span>{error.message}.</span>
+          <span className="text-text">{error.message}.</span>
         </div>
       )}
     </form>

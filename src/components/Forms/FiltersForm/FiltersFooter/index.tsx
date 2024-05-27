@@ -36,7 +36,7 @@ export default function FiltersFooter({
     <div className="flex items-center justify-between gap-4">
       <button
         className="inline-flex justify-center gap-1 rounded-md font-semibold text-black underline hover:text-black-hover lg:rounded-lg"
-        form="searchForm"
+        form="filtersForm"
         type="button"
         onClick={() => handleClearAll()}
       >

@@ -108,7 +108,7 @@ export default function SignupForm() {
 
       {isError && (
         <div>
-          <span>{error.message}.</span>
+          <span className="text-text">{error.message}.</span>
         </div>
       )}
     </form>

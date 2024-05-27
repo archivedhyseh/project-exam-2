@@ -92,7 +92,7 @@ export default function LoginForm() {
 
       {isError && (
         <div>
-          <span>{error.message}.</span>
+          <span className="text-text">{error.message}.</span>
         </div>
       )}
     </form>
