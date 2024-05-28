@@ -1,0 +1,2 @@
+export const publicToken =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoicHVibGljdG9rZW4iLCJlbWFpbCI6InB1YmxpY3Rva2VuQHN0dWQubm9yb2ZmLm5vIiwiaWF0IjoxNzE2OTE1MDIxfQ.FtSzcltbSivlH3bc1bPUqFklQSHYyK9Sq6Jn166ycsg'
