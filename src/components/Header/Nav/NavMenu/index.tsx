@@ -55,6 +55,7 @@ export default function NavMenu({
               <NavLink
                 key={index}
                 to={route.href}
+                aria-label={route.title}
                 onClick={() => setIsNavOpen(false)}
                 className={({ isActive }) =>
                   isActive
@@ -72,6 +73,7 @@ export default function NavMenu({
                   <NavLink
                     key={index}
                     to={route.href}
+                    aria-label={route.title}
                     onClick={() => setIsNavOpen(false)}
                     className={({ isActive }) =>
                       isActive
@@ -113,6 +115,7 @@ export default function NavMenu({
           ) : (
             <Link
               to="/login"
+              aria-label="Login"
               onClick={() => setIsNavOpen(false)}
               className="inline-flex w-full justify-center gap-2 rounded-full bg-brand px-3 py-2 font-bold text-white hover:bg-brand-hover lg:px-5 lg:py-3"
             >

@@ -18,6 +18,7 @@ export default function UpcomingCard({
     <div className="relative flex flex-col gap-2">
       <Link
         to={`/venue/${venue.id}`}
+        aria-label={`View details about ${venue.name}`}
         className="absolute left-0 top-0 h-full w-full rounded-lg"
       />
       <VenueImage media={venue.media} name={venue.name} />

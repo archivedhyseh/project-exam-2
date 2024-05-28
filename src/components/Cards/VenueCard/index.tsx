@@ -29,6 +29,7 @@ export default function VenueCard({
     <div className="relative flex flex-col gap-2">
       <Link
         to={`/venue/${id}`}
+        aria-label={`View details about ${name}`}
         className="absolute left-0 top-0 h-full w-full rounded-lg"
       />
       <VenueImage media={media} name={name} />

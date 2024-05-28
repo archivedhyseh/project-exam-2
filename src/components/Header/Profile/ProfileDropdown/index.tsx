@@ -46,6 +46,7 @@ export default function ProfileDropdown({
                 <Link
                   key={index}
                   to={route.href}
+                  aria-label={route.title}
                   onClick={() => setIsDropdownOpen(false)}
                   className="inline-flex w-full px-5 py-3 hover:bg-background-alt"
                 >

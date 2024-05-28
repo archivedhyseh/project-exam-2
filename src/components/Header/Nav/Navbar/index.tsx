@@ -8,6 +8,7 @@ export default function Navbar() {
         <NavLink
           key={index}
           to={route.href}
+          aria-label={route.title}
           className={({ isActive }) =>
             isActive
               ? 'inline-flex rounded-full px-5 py-3 font-bold text-text'
