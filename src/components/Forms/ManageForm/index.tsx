@@ -163,7 +163,7 @@ export default function ManageForm({ venue }: ManageFormProps) {
                   htmlFor={`media.${index}.alt`}
                   className="font-semibold text-text"
                 >
-                  Media {index + 1} alternative text
+                  Media {index + 1} description
                 </label>
 
                 <input
