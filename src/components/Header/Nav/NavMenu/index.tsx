@@ -23,7 +23,6 @@ export default function NavMenu({
     localStorage.removeItem('accessToken')
 
     setIsNavOpen(false)
-
     navigate('/', { replace: true })
   }
 

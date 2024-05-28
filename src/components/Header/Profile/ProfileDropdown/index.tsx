@@ -22,8 +22,6 @@ export default function ProfileDropdown({
 
     setIsDropdownOpen(false)
     navigate('/', { replace: true })
-
-    window.location.reload()
   }
 
   return (
