@@ -6,6 +6,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import './styles/globals.css'
 import './styles/daypicker.css'
 import App from './App.tsx'
+import Error from './routes/Error/index.tsx'
 import Root from './routes/Root/index.tsx'
 import Venues from './routes/Venues/index.tsx'
 import Listing from './routes/Listing/index.tsx'
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    errorElement: <Error />,
     children: [
       {
         index: true,
