@@ -6,12 +6,22 @@ type MyBookingsProps = {
 }
 
 export default function MyBookings({ bookings }: MyBookingsProps) {
-  bookings.sort((a, b) => {
-    const dateA = Date.parse(a.dateFrom)
-    const dateB = Date.parse(b.dateFrom)
+  const currentDate = new Date()
 
-    return dateA - dateB
-  })
+  if (bookings) {
+    bookings = bookings
+      .filter((booking) => {
+        const dateTo = new Date(booking.dateTo)
+
+        return dateTo >= currentDate
+      })
+      .sort((a, b) => {
+        const dateA = Date.parse(a.dateFrom)
+        const dateB = Date.parse(b.dateFrom)
+
+        return dateA - dateB
+      })
+  }
 
   return (
     <>

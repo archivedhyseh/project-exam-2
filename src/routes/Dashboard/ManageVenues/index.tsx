@@ -11,7 +11,7 @@ export default function ManageVenues({ venues }: ManageVenuesProps) {
       const createdA = Date.parse(a.created)
       const createdB = Date.parse(b.created)
 
-      return createdA - createdB
+      return createdB - createdA
     })
   }
 
