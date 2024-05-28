@@ -1,30 +1,49 @@
-# React + TypeScript + Vite
+# Project Exam 2
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Screenshot of Holidaze's homepage](./public/holidaze.webp)
 
-Currently, two official plugins are available:
+## Description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+In this project, you will find a accommodation website with a range of functionalities. Users can view venues, search for specific venues, and view detailed listings for each venue. The website allows users to register an account, log in, and view their upcoming bookings. Additionally, users can host their own venues and manage them through the dashboard. The website is responsive and easy to use on various devices.
 
-## Expanding the ESLint configuration
+**Note:** This is a school project and I do not intend to keep it updated. Feel free to use any inspiration from this project if you want.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Built with
 
-- Configure the top-level `parserOptions` property like this:
+- [React](https://react.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [TypeScript](https://www.typescriptlang.org/)
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+## Getting started
+
+You can find the live website on [Netlify](https://hyseh-project-exam-2.netlify.app/)
+
+### Installing
+
+1. Clone the repo:
+
+```bash
+git clone git@github.com:hyseh/project-exam-2.git
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. Install the dependencies:
+
+```bash
+npm install
+```
+
+### Running
+
+To run the app, run the following commands:
+
+```bash
+npm run dev
+```
+
+## Contact
+
+You can contact me at [john.hofland@outlook.com](mailto:john.hofland@outlook.com)
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE.md)
