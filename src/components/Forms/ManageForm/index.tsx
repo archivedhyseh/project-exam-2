@@ -1,7 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { useFieldArray, useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
 import { ZodType, z } from 'zod'
 import { Errors, Venue } from '../../../api/types'
 import Input from './Input'
@@ -89,12 +88,9 @@ const fetchManage = async ({ id, body }: fetchManageProps) => {
 
 type ManageFormProps = {
   venue: Venue
-  setIsModalOpen: (value: boolean) => void
 }
 
-export default function ManageForm({ venue, setIsModalOpen }: ManageFormProps) {
-  const navigate = useNavigate()
-
+export default function ManageForm({ venue }: ManageFormProps) {
   const {
     register,
     handleSubmit,
@@ -120,9 +116,8 @@ export default function ManageForm({ venue, setIsModalOpen }: ManageFormProps) {
 
   const { mutate, error, isError } = useMutation({
     mutationFn: fetchManage,
-    onSuccess: (data) => {
-      navigate(`/venue/${data.id}`)
-      setIsModalOpen(false)
+    onSuccess: () => {
+      window.location.reload()
     },
   })
 

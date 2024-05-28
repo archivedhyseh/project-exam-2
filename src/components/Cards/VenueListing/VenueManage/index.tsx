@@ -49,14 +49,12 @@ export default function VenueManage({ venue }: VenueManageProps) {
 
   const { mutate } = useMutation({
     mutationFn: fetchDelete,
-    onSuccess: () => {
-      navigate('/', { replace: true })
-    },
   })
 
   const handleDelete = () => {
     if (isConfirming) {
       mutate({ id: venue.id })
+      navigate('/venues', { replace: true })
     } else {
       setIsConfirming(true)
 
@@ -120,7 +118,7 @@ export default function VenueManage({ venue }: VenueManageProps) {
         setIsModalOpen={setIsEditOpen}
         modalFooter={<ManageFooter setIsModalOpen={setIsEditOpen} />}
       >
-        <ManageForm venue={venue} setIsModalOpen={setIsEditOpen} />
+        <ManageForm venue={venue} />
       </Modal>
     </div>
   )
