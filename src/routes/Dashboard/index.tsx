@@ -51,7 +51,7 @@ export default function Dashboard() {
 
   return (
     <div className="mx-auto max-w-screen-2xl px-4 py-5 lg:py-4">
-      {isError && <span>{error.message}</span>}
+      {isError && <span className="text-text">{error.message}</span>}
 
       <div className="flex flex-col gap-4 gap-y-8">
         {isSuccess && <Tabs tabsData={tabsData} />}

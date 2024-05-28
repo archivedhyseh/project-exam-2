@@ -40,7 +40,8 @@ export default function Listing() {
 
   return (
     <div className="mx-auto max-w-screen-2xl px-4 py-5 lg:py-4">
-      {isError && <span>{error.message}</span>}
+      {isError && <span className="text-text">{error.message}</span>}
+
       {isSuccess && <VenueListing venue={data} />}
     </div>
   )

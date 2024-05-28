@@ -115,7 +115,6 @@ export default function Venues() {
 
   return (
     <div className="mx-auto max-w-screen-2xl px-4 py-5 lg:py-4">
-      {isError && <span>{error.message}</span>}
       <div className="flex flex-col gap-y-8">
         <div className="mx-auto flex w-full max-w-screen-md gap-4">
           <Search />
@@ -124,9 +123,11 @@ export default function Venues() {
 
         <hr className="border-black-alt" />
 
-        <div className="grid auto-rows-fr gap-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
-          {isSuccess &&
-            venues.map(({ id, name, media, price, location }) => (
+        {isError && <span className="text-text">{error.message}</span>}
+
+        {isSuccess && venues.length > 0 && (
+          <div className="grid auto-rows-fr gap-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+            {venues.map(({ id, name, media, price, location }) => (
               <VenueCard
                 key={id}
                 id={id}
@@ -136,7 +137,18 @@ export default function Venues() {
                 location={location}
               />
             ))}
-        </div>
+          </div>
+        )}
+
+        {isSuccess && query && venues.length < 1 && (
+          <div>
+            <span className="font-semibold text-text">No venues found</span>
+
+            <p className="text-text-muted">
+              Please try a different search or remove some filters.
+            </p>
+          </div>
+        )}
 
         {hasNextPage && (
           <div className="flex flex-col items-center justify-center gap-4">

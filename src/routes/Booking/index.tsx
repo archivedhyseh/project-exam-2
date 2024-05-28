@@ -38,7 +38,8 @@ export default function Booking() {
 
   return (
     <div className="mx-auto max-w-screen-2xl px-4 py-5 lg:py-4">
-      {isError && <span>{error.message}</span>}
+      {isError && <span className="text-text">{error.message}</span>}
+
       {isSuccess && (
         <div className="grid gap-4 gap-y-8 lg:grid-cols-2">
           <div className="lg:order-2 lg:col-span-1">
