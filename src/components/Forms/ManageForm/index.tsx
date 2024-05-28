@@ -280,6 +280,8 @@ export default function ManageForm({ venue }: ManageFormProps) {
           placeholder="2"
           id="maxGuests"
           label="Max guests"
+          min={0}
+          max={10}
           register={register}
           errors={errors}
         />
@@ -289,6 +291,7 @@ export default function ManageForm({ venue }: ManageFormProps) {
           placeholder="50"
           id="price"
           label="Price per night in €EUR"
+          min={0}
           register={register}
           errors={errors}
         />
